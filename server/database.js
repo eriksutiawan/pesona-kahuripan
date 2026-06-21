@@ -1,5 +1,11 @@
 // server/database.js — Hybrid Database (Supabase with lowdb Local Fallback)
 require('dotenv').config();
+
+// Polyfill WebSocket for Node.js environments (required for Supabase Realtime in Node < 22)
+if (typeof globalThis.WebSocket === 'undefined') {
+  globalThis.WebSocket = require('ws');
+}
+
 const { createClient } = require('@supabase/supabase-js');
 const bcrypt = require('bcryptjs');
 const path = require('path');
