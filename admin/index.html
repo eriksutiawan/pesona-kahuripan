@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — Pesona Kahuripan CMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C97A; --emerald: #1A5C45;
+      --forest: #0D3D2C; --cream: #FAF7F2; --white: #FFFFFF;
+      --text: #1A1A2E; --text-mid: #4A4A6A; --error: #e74c3c;
+      --success: #2ecc71;
+    }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, var(--forest) 0%, var(--emerald) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.15), transparent 70%);
+      border-radius: 50%;
+    }
+    body::after {
+      content: '';
+      position: absolute;
+      bottom: -200px; left: -200px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
+      border-radius: 50%;
+    }
+    .login-card {
+      background: rgba(255,255,255,0.97);
+      border-radius: 24px;
+      padding: 52px 48px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
+      animation: slideUp 0.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .login-logo {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .login-logo .icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+    .login-logo h1 {
+      font-size: 1.4rem; font-weight: 700; color: var(--text);
+    }
+    .login-logo .sub {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 4px;
+      color: var(--gold); text-transform: uppercase; display: block; margin-top: 2px;
+    }
+    .login-logo .desc {
+      font-size: 0.85rem; color: var(--text-mid); margin-top: 6px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block; font-size: 0.82rem; font-weight: 600;
+      color: var(--text); margin-bottom: 8px; letter-spacing: 0.5px;
+    }
+    .input-wrap { position: relative; }
+    .input-wrap .input-icon {
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      font-size: 1rem; color: var(--text-mid);
+    }
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px 14px 44px;
+      border: 1.5px solid #E0E0E0;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      transition: all 0.25s ease;
+      outline: none;
+      background: var(--cream);
+    }
+    .form-group input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(201,168,76,0.12);
+      background: white;
+    }
+    .btn-login {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.35);
+    }
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(201,168,76,0.45);
+    }
+    .btn-login:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+    .alert {
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .alert.error { background: #fdf2f2; color: var(--error); border: 1px solid #fccaca; display: flex; }
+    .alert.success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; display: flex; }
+    .footer-note {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 0.8rem;
+      color: var(--text-mid);
+    }
+    .spinner {
+      display: inline-block;
+      width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="icon">🏠</span>
+      <h1>Pesona Kahuripan</h1>
+      <span class="sub">CMS Admin Panel</span>
+      <p class="desc">Masuk untuk mengelola konten website</p>
+    </div>
+
+    <div class="alert" id="alert-box">
+      <span id="alert-text"></span>
+    </div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <div class="input-wrap">
+          <span class="input-icon">👤</span>
+          <input type="text" id="username" name="username" placeholder="Masukkan username" autocomplete="username" required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="password" name="password" placeholder="Masukkan password" autocomplete="current-password" required />
+        </div>
+      </div>
+      <button type="submit" class="btn-login" id="login-btn">
+        <span class="spinner" id="spinner"></span>
+        <span id="btn-text">Masuk ke Dashboard</span>
+      </button>
+    </form>
+
+    <p class="footer-note">Pesona Kahuripan Group © 2024 · CMS v1.0</p>
+  </div>
+
+  <script>
+    // Check if already logged in
+    fetch('/api/auth/check').then(r => r.json()).then(d => {
+      if (d.loggedIn) window.location.href = '/admin/dashboard.html';
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('login-btn');
+      const spinner = document.getElementById('spinner');
+      const btnText = document.getElementById('btn-text');
+      const alertBox = document.getElementById('alert-box');
+      const alertText = document.getElementById('alert-text');
+
+      btn.disabled = true;
+      spinner.style.display = 'inline-block';
+      btnText.textContent = 'Memproses...';
+      alertBox.className = 'alert';
+
+      const data = {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+      };
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await res.json();
+
+        if (result.success) {
+          alertBox.className = 'alert success';
+          alertText.textContent = '✅ ' + result.message + ' Mengalihkan...';
+          setTimeout(() => window.location.href = '/admin/dashboard.html', 800);
+        } else {
+          throw new Error(result.error || 'Login gagal.');
+        }
+      } catch (err) {
+        alertBox.className = 'alert error';
+        alertText.textContent = '❌ ' + err.message;
+        btn.disabled = false;
+        spinner.style.display = 'none';
+        btnText.textContent = 'Masuk ke Dashboard';
+      }
+    });
+  </script>
+</body>
+</html>

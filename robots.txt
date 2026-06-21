@@ -1,0 +1,32 @@
+# Robots.txt – Pesona Kahuripan Group
+# https://pesonakahuripan.id/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://pesonakahuripan.id/sitemap.xml
+
+# Block admin/private files (if any)
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow: /*.php$
+Disallow: /feed/
+Disallow: /comments/feed/
+
+# Allow all crawlers for main content
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Image
+Allow: /hero.png
+Allow: /house_subsidi.png
+Allow: /house_komersil.png
+Allow: /house_exterior.png
+Allow: /interior.png
+Allow: /neighborhood.png
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1

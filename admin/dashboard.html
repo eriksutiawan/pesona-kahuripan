@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin — Pesona Kahuripan CMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">🏠</div>
+    <div class="brand-name">Pesona Kahuripan</div>
+    <span class="brand-sub">GROUP</span>
+    <span class="brand-tag">CMS Admin v1.0</span>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Utama</div>
+    <button class="nav-item active" data-panel="dashboard" id="nav-dashboard">
+      <span class="nav-icon">📊</span> Dashboard
+    </button>
+    <div class="nav-section-label">Konten</div>
+    <button class="nav-item" data-panel="hero" id="nav-hero">
+      <span class="nav-icon">🖼️</span> Hero & Banner
+    </button>
+    <button class="nav-item" data-panel="products" id="nav-products">
+      <span class="nav-icon">🏘️</span> Produk Rumah
+    </button>
+    <button class="nav-item" data-panel="projects" id="nav-projects">
+      <span class="nav-icon">📍</span> Kelola Cluster
+    </button>
+    <button class="nav-item" data-panel="gallery" id="nav-gallery">
+      <span class="nav-icon">🖼️</span> Galeri Foto
+    </button>
+    <button class="nav-item" data-panel="news" id="nav-news">
+      <span class="nav-icon">📰</span> Berita / Artikel
+    </button>
+    <button class="nav-item" data-panel="testimonials" id="nav-testimonials">
+      <span class="nav-icon">💬</span> Testimoni
+    </button>
+    <button class="nav-item" data-panel="faq" id="nav-faq">
+      <span class="nav-icon">❓</span> FAQ
+    </button>
+    <button class="nav-item" data-panel="keunggulan" id="nav-keunggulan">
+      <span class="nav-icon">🏆</span> Keunggulan
+    </button>
+    <div class="nav-section-label">Pengaturan</div>
+    <button class="nav-item" data-panel="settings" id="nav-settings">
+      <span class="nav-icon">⚙️</span> Info Perusahaan
+    </button>
+    <button class="nav-item" data-panel="password" id="nav-password">
+      <span class="nav-icon">🔒</span> Ganti Password
+    </button>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-avatar" id="user-avatar">A</div>
+      <div class="user-info">
+        <div class="user-name" id="user-name">Administrator</div>
+        <div class="user-role">Admin CMS</div>
+      </div>
+    </div>
+    <button class="btn-logout" id="btn-logout">🚪 Keluar</button>
+  </div>
+</aside>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main-content">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div class="topbar-subtitle" id="topbar-subtitle">Selamat datang di panel admin</div>
+    </div>
+    <div class="topbar-actions">
+      <a href="/" target="_blank" class="btn-view-site">🌐 Lihat Website</a>
+    </div>
+  </div>
+
+  <div class="page-content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="panel active" id="panel-dashboard">
+      <div class="dashboard-grid">
+        <div class="dash-card">
+          <div class="dash-icon gold">🏘️</div>
+          <div><div class="dash-num" id="stat-products">0</div><div class="dash-label">Produk Rumah</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon emerald">📍</div>
+          <div><div class="dash-num" id="stat-projects">0</div><div class="dash-label">Cluster Sukses</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon emerald">🖼️</div>
+          <div><div class="dash-num" id="stat-gallery">0</div><div class="dash-label">Foto Galeri</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon gold">📰</div>
+          <div><div class="dash-num" id="stat-news">0</div><div class="dash-label">Berita / Artikel</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon blue">💬</div>
+          <div><div class="dash-num" id="stat-testi">0</div><div class="dash-label">Testimoni</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon purple">❓</div>
+          <div><div class="dash-num" id="stat-faq">0</div><div class="dash-label">FAQ</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🚀 Akses Cepat</div>
+        <div class="quick-links">
+          <div class="quick-link" data-panel="hero"><div class="ql-icon">🖼️</div><div class="ql-label">Edit Hero</div></div>
+          <div class="quick-link" data-panel="products"><div class="ql-icon">🏘️</div><div class="ql-label">Kelola Produk</div></div>
+          <div class="quick-link" data-panel="projects"><div class="ql-icon">📍</div><div class="ql-label">Kelola Cluster</div></div>
+          <div class="quick-link" data-panel="gallery"><div class="ql-icon">📷</div><div class="ql-label">Upload Foto</div></div>
+          <div class="quick-link" data-panel="news"><div class="ql-icon">📰</div><div class="ql-label">Kelola Berita</div></div>
+          <div class="quick-link" data-panel="testimonials"><div class="ql-icon">💬</div><div class="ql-label">Tambah Testimoni</div></div>
+          <div class="quick-link" data-panel="faq"><div class="ql-icon">❓</div><div class="ql-label">Kelola FAQ</div></div>
+          <div class="quick-link" data-panel="settings"><div class="ql-icon">⚙️</div><div class="ql-label">Pengaturan</div></div>
+          <div class="quick-link" data-panel="keunggulan"><div class="ql-icon">🏆</div><div class="ql-label">Keunggulan</div></div>
+          <div class="quick-link" data-panel="password"><div class="ql-icon">🔒</div><div class="ql-label">Ganti Password</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <div class="panel" id="panel-hero">
+      <div class="section-hdr">
+        <div><h2>🖼️ Hero & Banner</h2><div class="hdr-desc">Edit konten utama halaman beranda</div></div>
+        <button class="btn btn-primary" id="btn-save-hero">💾 Simpan Perubahan</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Konten Hero Section</div>
+        <div class="form-grid">
+          <div class="form-group"><label>Badge / Label Kecil</label><input type="text" id="hero-badge" placeholder="✦ Perumahan Terpercaya di Bogor" /></div>
+          <div class="form-group"><label>Judul Utama</label><input type="text" id="hero-title" placeholder="Wujudkan Rumah" /></div>
+          <div class="form-group"><label>Judul (Italic / Highlight)</label><input type="text" id="hero-title-em" placeholder="Impian Anda" /></div>
+          <div class="form-group"><label>Subtitle</label><input type="text" id="hero-subtitle" placeholder="Rumah Subsidi & Komersil Double Dinding..." /></div>
+          <div class="form-group"><label>Highlight Harga (dalam subtitle)</label><input type="text" id="hero-subtitle-highlight" placeholder="Rp 1 Jutaan" /></div>
+          <div class="form-group"><label>Highlight Unit (dalam subtitle)</label><input type="text" id="hero-subtitle-units" placeholder="15.000 Unit" /></div>
+          <div class="form-group"><label>Teks Tombol Utama</label><input type="text" id="hero-cta-primary" placeholder="Lihat Produk" /></div>
+          <div class="form-group"><label>Teks Tombol WhatsApp</label><input type="text" id="hero-cta-wa" placeholder="WhatsApp Sekarang" /></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Statistik Perusahaan</div>
+        <div id="stats-list"></div>
+      </div>
+    </div>
+
+    <!-- ===== PRODUCTS ===== -->
+    <div class="panel" id="panel-products">
+      <div class="section-hdr">
+        <div><h2>🏘️ Produk Rumah</h2><div class="hdr-desc">Kelola daftar produk perumahan</div></div>
+        <button class="btn btn-primary" id="btn-add-product">+ Tambah Produk</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="table-wrap">
+          <table id="products-table">
+            <thead><tr><th>Foto</th><th>Tipe</th><th>Nama</th><th>Harga</th><th>Featured</th><th>Aksi</th></tr></thead>
+            <tbody id="products-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PROJECTS ===== -->
+    <div class="panel" id="panel-projects">
+      <div class="section-hdr">
+        <div><h2>📍 Kelola Cluster</h2><div class="hdr-desc">Kelola daftar cluster perumahan sukses</div></div>
+        <button class="btn btn-primary" id="btn-add-project">+ Tambah Cluster</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="table-wrap">
+          <table id="projects-table">
+            <thead><tr><th>Nama Cluster</th><th>Status</th><th>Tipe Rumah</th><th>Lokasi</th><th>Aksi</th></tr></thead>
+            <tbody id="projects-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GALLERY ===== -->
+    <div class="panel" id="panel-gallery">
+      <div class="section-hdr">
+        <div><h2>🖼️ Galeri Foto</h2><div class="hdr-desc">Upload dan kelola foto galeri</div></div>
+        <button class="btn btn-primary" id="btn-add-gallery">+ Upload Foto</button>
+      </div>
+      <div class="card">
+        <div class="gallery-grid" id="gallery-grid"></div>
+        <div class="empty-state" id="gallery-empty" style="display:none;">
+          <div class="es-icon">🖼️</div>
+          <p>Belum ada foto. Klik "+ Upload Foto" untuk menambahkan.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== NEWS ===== -->
+    <div class="panel" id="panel-news">
+      <div class="section-hdr">
+        <div><h2>📰 Berita & Artikel</h2><div class="hdr-desc">Kelola berita dan artikel perumahan</div></div>
+        <button class="btn btn-primary" id="btn-add-news">+ Tambah Berita</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="table-wrap">
+          <table id="news-table">
+            <thead><tr><th>Foto</th><th>Judul</th><th>Tanggal</th><th>Ringkasan</th><th>Aksi</th></tr></thead>
+            <tbody id="news-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <div class="panel" id="panel-testimonials">
+      <div class="section-hdr">
+        <div><h2>💬 Testimoni</h2><div class="hdr-desc">Kelola ulasan dari pelanggan</div></div>
+        <button class="btn btn-primary" id="btn-add-testi">+ Tambah Testimoni</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Nama</th><th>Lokasi</th><th>Bintang</th><th>Ulasan</th><th>Aksi</th></tr></thead>
+            <tbody id="testi-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FAQ ===== -->
+    <div class="panel" id="panel-faq">
+      <div class="section-hdr">
+        <div><h2>❓ FAQ</h2><div class="hdr-desc">Pertanyaan yang sering diajukan</div></div>
+        <button class="btn btn-primary" id="btn-add-faq">+ Tambah FAQ</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Pertanyaan</th><th>Jawaban</th><th>Aksi</th></tr></thead>
+            <tbody id="faq-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== KEUNGGULAN ===== -->
+    <div class="panel" id="panel-keunggulan">
+      <div class="section-hdr">
+        <div><h2>🏆 Keunggulan</h2><div class="hdr-desc">Edit poin-poin keunggulan perusahaan</div></div>
+      </div>
+      <div id="keunggulan-list"></div>
+    </div>
+
+    <!-- ===== SETTINGS ===== -->
+    <div class="panel" id="panel-settings">
+      <div class="section-hdr">
+        <div><h2>⚙️ Info Perusahaan</h2><div class="hdr-desc">Pengaturan umum website</div></div>
+        <button class="btn btn-primary" id="btn-save-settings">💾 Simpan</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Informasi Dasar</div>
+        <div class="form-grid">
+          <div class="form-group"><label>Nama Perusahaan</label><input type="text" id="s-company" /></div>
+          <div class="form-group"><label>Tagline</label><input type="text" id="s-tagline" /></div>
+          <div class="form-group"><label>No. WhatsApp (tanpa +)</label><input type="text" id="s-phone" placeholder="6287772463775" /></div>
+          <div class="form-group"><label>Tampilan Nomor Telepon</label><input type="text" id="s-phone-display" placeholder="0877-7246-3775" /></div>
+          <div class="form-group full"><label>Alamat Kantor Pemasaran</label><input type="text" id="s-address" /></div>
+          <div class="form-group"><label>Jam Operasional</label><input type="text" id="s-hours" /></div>
+          <div class="form-group"><label>Tahun Berdiri</label><input type="text" id="s-founded" /></div>
+          <div class="form-group"><label>Instagram URL</label><input type="text" id="s-instagram" /></div>
+          <div class="form-group"><label>Facebook URL</label><input type="text" id="s-facebook" /></div>
+          <div class="form-group"><label>Google Maps URL</label><input type="text" id="s-maps-url" /></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Konten Tentang Kami</div>
+        <div class="form-group"><label>Judul Tentang Kami</label><input type="text" id="s-about-title" /></div>
+        <div class="form-group"><label>Paragraf 1</label><textarea id="s-about-text" rows="3"></textarea></div>
+        <div class="form-group"><label>Paragraf 2</label><textarea id="s-about-text2" rows="3"></textarea></div>
+        <div class="form-group"><label>Teks Footer</label><textarea id="s-footer" rows="2"></textarea></div>
+      </div>
+    </div>
+
+    <!-- ===== PASSWORD ===== -->
+    <div class="panel" id="panel-password">
+      <div class="section-hdr">
+        <div><h2>🔒 Ganti Password</h2><div class="hdr-desc">Ubah password akun admin</div></div>
+      </div>
+      <div class="card" style="max-width:480px;">
+        <div class="card-title">Ubah Password Admin</div>
+        <form id="password-form">
+          <div class="form-group"><label>Password Saat Ini</label><input type="password" id="pw-current" required /></div>
+          <div class="form-group"><label>Password Baru (min 6 karakter)</label><input type="password" id="pw-new" required minlength="6" /></div>
+          <div class="form-group"><label>Konfirmasi Password Baru</label><input type="password" id="pw-confirm" required /></div>
+          <button type="submit" class="btn btn-primary">🔒 Ganti Password</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== MODALS ===== -->
+
+<!-- Product Modal -->
+<div class="modal-overlay" id="modal-product" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-product-title">Tambah Produk</div>
+      <button class="modal-close" data-close="modal-product">✕</button>
+    </div>
+    <input type="hidden" id="prod-id" />
+    <div class="form-grid">
+      <div class="form-group"><label>Tipe Produk</label><input type="text" id="prod-type" placeholder="Rumah Subsidi" /></div>
+      <div class="form-group"><label>Nama / Varian</label><input type="text" id="prod-name" placeholder="Tipe 30/60 · FLPP" /></div>
+      <div class="form-group full"><label>Deskripsi Singkat</label><textarea id="prod-desc" rows="2"></textarea></div>
+      <div class="form-group"><label>Luas Bangunan</label><input type="text" id="prod-spec-building" placeholder="30 m²" /></div>
+      <div class="form-group"><label>Luas Tanah</label><input type="text" id="prod-spec-land" placeholder="60 m²" /></div>
+      <div class="form-group"><label>Kamar Tidur</label><input type="text" id="prod-spec-bedroom" placeholder="2 Kamar Tidur" /></div>
+      <div class="form-group"><label>Kamar Mandi</label><input type="text" id="prod-spec-bathroom" placeholder="1 Kamar Mandi" /></div>
+      <div class="form-group"><label>Label Harga</label><input type="text" id="prod-price-label" placeholder="Cicilan Mulai" /></div>
+      <div class="form-group"><label>Nilai Harga</label><input type="text" id="prod-price-value" placeholder="Rp 1 Juta" /></div>
+      <div class="form-group"><label>Satuan Harga</label><input type="text" id="prod-price-unit" placeholder="/bln" /></div>
+      <div class="form-group"><label>Badge (kosongkan jika tidak ada)</label><input type="text" id="prod-badge" placeholder="🏅 Terlaris" /></div>
+      <div class="form-group"><label>Pesan WhatsApp Otomatis</label><input type="text" id="prod-wa" placeholder="Halo, saya tertarik dengan..." /></div>
+      <div class="form-group"><label>Harga KPR</label><input type="text" id="prod-kpr-price" placeholder="Rp 185.000.000" /></div>
+      <div class="form-group full">
+        <label>Estimasi Cicilan (Format: Tahun: Nilai, satu per baris)</label>
+        <textarea id="prod-installments" rows="3" placeholder="20 Tahun: Rp 1.192.574 /bln&#10;15 Tahun: Rp 1.427.023 /bln&#10;10 Tahun: Rp 1.910.587 /bln"></textarea>
+      </div>
+      <div class="form-group full">
+        <label>Foto Produk</label>
+        <div class="upload-zone" id="prod-upload-zone" onclick="document.getElementById('prod-img-input').click()">
+          <div class="uz-icon">📷</div>
+          <div class="uz-text">Klik untuk upload foto</div>
+          <div class="uz-hint">JPG, PNG, WebP · Max 5MB</div>
+        </div>
+        <input type="file" id="prod-img-input" accept="image/*" style="display:none;" />
+        <img id="prod-img-preview" class="img-preview" />
+        <input type="hidden" id="prod-image" />
+      </div>
+      <div class="form-group full">
+        <label style="display:flex;align-items:center;gap:10px;">
+          <input type="checkbox" id="prod-featured" style="width:auto;padding:0;" />
+          Tandai sebagai Produk Unggulan (Featured)
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-close="modal-product">Batal</button>
+      <button class="btn btn-primary" id="btn-save-product">💾 Simpan Produk</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal -->
+<div class="modal-overlay" id="modal-project" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-project-title">Tambah Cluster</div>
+      <button class="modal-close" data-close="modal-project">✕</button>
+    </div>
+    <input type="hidden" id="project-id" />
+    <div class="form-grid">
+      <div class="form-group"><label>Nama Cluster</label><input type="text" id="project-title" placeholder="Pesona Kahuripan 12" /></div>
+      <div class="form-group"><label>Status</label><input type="text" id="project-status" placeholder="Unit Terbaru & Terlaris" /></div>
+      <div class="form-group">
+        <label>Warna / Kelas Status</label>
+        <select id="project-status-class">
+          <option value="status-active">Hijau (Aktif / Ready Stock)</option>
+          <option value="status-featured">Emas (Featured / Unggulan)</option>
+          <option value="status-soldout">Merah (Sold Out)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Lokasi / Alamat</label><input type="text" id="project-location" placeholder="Pinggir Jalan Provinsi, Cileungsi, Kab. Bogor" /></div>
+      <div class="form-group full"><label>Tipe Rumah</label><input type="text" id="project-types" placeholder="Subsidi & Komersil (Tipe 36/66, 42/90)" /></div>
+      <div class="form-group full"><label>Fitur / Keunggulan</label><textarea id="project-features" rows="3" placeholder="Proyek terbaru kami yang berlokasi langsung di pinggir Jalan Provinsi utama..."></textarea></div>
+      <div class="form-group full"><label>Pesan WhatsApp Otomatis</label><input type="text" id="project-wa" placeholder="Halo, saya tertarik dengan unit perumahan di Pesona Kahuripan 12..." /></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-close="modal-project">Batal</button>
+      <button class="btn btn-primary" id="btn-save-project">💾 Simpan Cluster</button>
+    </div>
+  </div>
+</div>
+
+<!-- Gallery Upload Modal -->
+<div class="modal-overlay" id="modal-gallery" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Upload Foto Galeri</div>
+      <button class="modal-close" data-close="modal-gallery">✕</button>
+    </div>
+    <div class="form-group">
+      <label>Foto</label>
+      <div class="upload-zone" onclick="document.getElementById('gal-img-input').click()">
+        <div class="uz-icon">📷</div>
+        <div class="uz-text">Klik untuk upload foto</div>
+        <div class="uz-hint">JPG, PNG, WebP · Max 5MB</div>
+      </div>
+      <input type="file" id="gal-img-input" accept="image/*" style="display:none;" />
+      <img id="gal-img-preview" class="img-preview" />
+      <input type="hidden" id="gal-image" />
+    </div>
+    <div class="form-group"><label>Keterangan Foto</label><input type="text" id="gal-caption" placeholder="Contoh: Aerial View Perumahan" /></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-close="modal-gallery">Batal</button>
+      <button class="btn btn-primary" id="btn-save-gallery">💾 Simpan Foto</button>
+    </div>
+  </div>
+</div>
+
+<!-- News Modal -->
+<div class="modal-overlay" id="modal-news" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-news-title">Tambah Berita</div>
+      <button class="modal-close" data-close="modal-news">✕</button>
+    </div>
+    <input type="hidden" id="news-id" />
+    <div class="form-grid">
+      <div class="form-group full"><label>Judul Berita</label><input type="text" id="news-title" placeholder="Masukkan judul berita..." required /></div>
+      <div class="form-group"><label>Tanggal Berita</label><input type="text" id="news-date" placeholder="Contoh: 15 Juni 2026 atau 2026-06-15" required /></div>
+      <div class="form-group full"><label>Ringkasan / Excerpt</label><textarea id="news-excerpt" rows="4" placeholder="Tulis ringkasan berita..." required></textarea></div>
+      <div class="form-group full">
+        <label>Foto Berita</label>
+        <div class="upload-zone" id="news-upload-zone" onclick="document.getElementById('news-img-input').click()">
+          <div class="uz-icon">📷</div>
+          <div class="uz-text">Klik untuk upload foto</div>
+          <div class="uz-hint">JPG, PNG, WebP · Max 5MB</div>
+        </div>
+        <input type="file" id="news-img-input" accept="image/*" style="display:none;" />
+        <img id="news-img-preview" class="img-preview" />
+        <input type="hidden" id="news-image" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-close="modal-news">Batal</button>
+      <button class="btn btn-primary" id="btn-save-news">💾 Simpan Berita</button>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonial Modal -->
+<div class="modal-overlay" id="modal-testi" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-testi-title">Tambah Testimoni</div>
+      <button class="modal-close" data-close="modal-testi">✕</button>
+    </div>
+    <input type="hidden" id="testi-id" />
+    <div class="form-grid">
+      <div class="form-group"><label>Nama Pelanggan</label><input type="text" id="testi-name" placeholder="Ahmad Fauzi" /></div>
+      <div class="form-group"><label>Lokasi / Asal</label><input type="text" id="testi-location" placeholder="Klapanunggal, Bogor" /></div>
+      <div class="form-group">
+        <label>Rating Bintang</label>
+        <select id="testi-stars">
+          <option value="5">⭐⭐⭐⭐⭐ (5 Bintang)</option>
+          <option value="4">⭐⭐⭐⭐ (4 Bintang)</option>
+          <option value="3">⭐⭐⭐ (3 Bintang)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Warna Avatar</label>
+        <div class="color-swatches" id="testi-colors">
+          <div class="swatch active" style="background:#667eea;" data-color="#667eea"></div>
+          <div class="swatch" style="background:#f5576c;" data-color="#f5576c"></div>
+          <div class="swatch" style="background:#4facfe;" data-color="#4facfe"></div>
+          <div class="swatch" style="background:#43e97b;" data-color="#43e97b"></div>
+          <div class="swatch" style="background:#f7971e;" data-color="#f7971e"></div>
+          <div class="swatch" style="background:#c471ed;" data-color="#c471ed"></div>
+        </div>
+        <input type="hidden" id="testi-color" value="#667eea" />
+      </div>
+      <div class="form-group full"><label>Isi Ulasan</label><textarea id="testi-text" rows="4" placeholder="Tulis ulasan pelanggan..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-close="modal-testi">Batal</button>
+      <button class="btn btn-primary" id="btn-save-testi">💾 Simpan Testimoni</button>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ Modal -->
+<div class="modal-overlay" id="modal-faq" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-faq-title">Tambah FAQ</div>
+      <button class="modal-close" data-close="modal-faq">✕</button>
+    </div>
+    <input type="hidden" id="faq-id" />
+    <div class="form-group"><label>Pertanyaan</label><input type="text" id="faq-question" placeholder="Berapa cicilan KPR subsidi?" /></div>
+    <div class="form-group"><label>Jawaban</label><textarea id="faq-answer" rows="5" placeholder="Tulis jawaban lengkap..."></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-close="modal-faq">Batal</button>
+      <button class="btn btn-primary" id="btn-save-faq">💾 Simpan FAQ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div class="modal-overlay" id="modal-confirm" style="display:none;">
+  <div class="modal" style="max-width:380px;text-align:center;">
+    <div style="font-size:3rem;margin-bottom:16px;">🗑️</div>
+    <h3 style="margin-bottom:10px;font-size:1.1rem;">Hapus Data?</h3>
+    <p style="color:#4A4A6A;font-size:0.9rem;margin-bottom:24px;" id="confirm-message">Data yang dihapus tidak dapat dikembalikan.</p>
+    <div style="display:flex;gap:12px;justify-content:center;">
+      <button class="btn btn-secondary" data-close="modal-confirm">Batal</button>
+      <button class="btn btn-danger" id="btn-confirm-delete">Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Halaman Utama -->
+  <url>
+    <loc>https://pesonakahuripan.id/</loc>
+    <lastmod>2026-06-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://pesonakahuripan.id/hero.png</image:loc>
+      <image:title>Aerial View Perumahan Pesona Kahuripan, Bogor</image:title>
+      <image:caption>Perumahan Pesona Kahuripan Group – Rumah Subsidi dan Komersil Double Dinding Terbesar di Bogor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://pesonakahuripan.id/house_subsidi.png</image:loc>
+      <image:title>Rumah Subsidi Tipe 30/60 Pesona Kahuripan</image:title>
+      <image:caption>Rumah Subsidi KPR FLPP Tipe 30/60 – Cicilan mulai Rp 1 Jutaan</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://pesonakahuripan.id/house_komersil.png</image:loc>
+      <image:title>Rumah Komersil Tipe 36/72 Pesona Kahuripan</image:title>
+      <image:caption>Rumah Komersil Double Dinding Tipe 36/72 di Pinggir Jalan Provinsi Bogor</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://pesonakahuripan.id/house_exterior.png</image:loc>
+      <image:title>Rumah Komersil Premium Tipe 42/90 Pesona Kahuripan</image:title>
+      <image:caption>Rumah Komersil Premium Tipe 42/90 – 3 Kamar Tidur, 2 Kamar Mandi</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://pesonakahuripan.id/interior.png</image:loc>
+      <image:title>Interior Rumah Modern Pesona Kahuripan</image:title>
+      <image:caption>Interior ruang tamu rumah modern Pesona Kahuripan</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://pesonakahuripan.id/neighborhood.png</image:loc>
+      <image:title>Lingkungan Asri Perumahan Pesona Kahuripan</image:title>
+      <image:caption>Lingkungan perumahan Pesona Kahuripan yang asri dan nyaman di Bogor</image:caption>
+    </image:image>
+  </url>
+
+</urlset>
