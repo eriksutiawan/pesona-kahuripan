@@ -1,11 +1,11 @@
 # Robots.txt – Pesona Kahuripan Group
-# https://pesonakahuripan.id/
+# https://pesonakahuripan.my.id/
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://pesonakahuripan.id/sitemap.xml
+Sitemap: https://pesonakahuripan.my.id/sitemap.xml
 
 # Block admin/private files (if any)
 Disallow: /wp-admin/
