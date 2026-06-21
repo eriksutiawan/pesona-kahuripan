@@ -11,7 +11,11 @@ const PORT = process.env.PORT || 3000;
 
 // ─── Ensure uploads directory exists ───────────────────
 const uploadsDir = path.join(__dirname, '../uploads');
-if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+try {
+  if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+} catch (err) {
+  console.warn('⚠️ Could not create local uploads directory (this is normal in read-only cloud runtimes):', err.message);
+}
 
 // ─── Multer for image uploads ───────────────────────────
 const storage = multer.memoryStorage();
@@ -118,16 +122,18 @@ app.get('*', (req, res) => {
 
 // ─── Start Server ───────────────────────────────────────
 initDatabase();
-app.listen(PORT, () => {
-  console.log('');
-  console.log('🏠 ════════════════════════════════════════════');
-  console.log('   Pesona Kahuripan CMS Server');
-  console.log('════════════════════════════════════════════════');
-  console.log(`  🌐 Website  : http://localhost:${PORT}`);
-  console.log(`  🔧 Admin    : http://localhost:${PORT}/admin`);
-  console.log(`  🔑 Login    : admin / admin123`);
-  console.log('════════════════════════════════════════════════');
-  console.log('');
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log('');
+    console.log('🏠 ════════════════════════════════════════════');
+    console.log('   Pesona Kahuripan CMS Server');
+    console.log('════════════════════════════════════════════════');
+    console.log(`  🌐 Website  : http://localhost:${PORT}`);
+    console.log(`  🔧 Admin    : http://localhost:${PORT}/admin`);
+    console.log(`  🔑 Login    : admin / admin123`);
+    console.log('════════════════════════════════════════════════');
+    console.log('');
+  });
+}
 
 module.exports = app;
