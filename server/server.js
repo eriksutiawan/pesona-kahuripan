@@ -52,32 +52,42 @@ const { supabase } = require('./database');
 app.post('/api/admin/upload', requireAuth, upload.single('image'), async (req, res) => {
   try {
     if (!req.file) return res.status(400).json({ error: 'Tidak ada file yang diunggah.' });
-    if (!supabase) return res.status(500).json({ error: 'Supabase client not initialized.' });
 
     const unique = Date.now() + '-' + Math.round(Math.random() * 1e6);
     const ext = path.extname(req.file.originalname).toLowerCase();
     const filename = unique + ext;
 
-    const { data, error } = await supabase.storage
-      .from('uploads')
-      .upload(filename, req.file.buffer, {
-        contentType: req.file.mimetype,
-        cacheControl: '3600',
-        upsert: false
+    if (supabase) {
+      const { data, error } = await supabase.storage
+        .from('uploads')
+        .upload(filename, req.file.buffer, {
+          contentType: req.file.mimetype,
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (error) throw error;
+
+      const { data: urlData } = supabase.storage
+        .from('uploads')
+        .getPublicUrl(filename);
+
+      res.json({
+        success: true,
+        url: urlData.publicUrl,
+        filename: filename,
+        message: 'Gambar berhasil diunggah.'
       });
-
-    if (error) throw error;
-
-    const { data: urlData } = supabase.storage
-      .from('uploads')
-      .getPublicUrl(filename);
-
-    res.json({
-      success: true,
-      url: urlData.publicUrl,
-      filename: filename,
-      message: 'Gambar berhasil diunggah.'
-    });
+    } else {
+      const filePath = path.join(uploadsDir, filename);
+      fs.writeFileSync(filePath, req.file.buffer);
+      res.json({
+        success: true,
+        url: `/uploads/${filename}`,
+        filename: filename,
+        message: 'Gambar berhasil diunggah secara lokal.'
+      });
+    }
   } catch (err) {
     console.error('Upload error:', err);
     res.status(500).json({ error: err.message || 'Gagal mengunggah gambar.' });
