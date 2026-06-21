@@ -1,17 +1,18 @@
 // server/routes/auth.js — Admin Authentication Routes
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const { db } = require('../database');
+const { dbGet } = require('../database');
 const router = express.Router();
 
 // POST /api/auth/login
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
       return res.status(400).json({ error: 'Username dan password wajib diisi.' });
     }
-    const user = db.get('users').find({ username }).value();
+    const users = await dbGet('users') || [];
+    const user = users.find(u => u.username === username);
     if (!user) {
       return res.status(401).json({ error: 'Username atau password salah.' });
     }

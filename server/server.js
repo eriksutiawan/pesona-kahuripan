@@ -14,14 +14,7 @@ const uploadsDir = path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 
 // ─── Multer for image uploads ───────────────────────────
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadsDir),
-  filename: (req, file, cb) => {
-    const unique = Date.now() + '-' + Math.round(Math.random() * 1e6);
-    const ext = path.extname(file.originalname).toLowerCase();
-    cb(null, unique + ext);
-  }
-});
+const storage = multer.memoryStorage();
 const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
@@ -54,15 +47,41 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // ─── Image Upload Endpoint ──────────────────────────────
 const requireAuth = require('./middleware/auth');
+const { supabase } = require('./database');
 
-app.post('/api/admin/upload', requireAuth, upload.single('image'), (req, res) => {
-  if (!req.file) return res.status(400).json({ error: 'Tidak ada file yang diunggah.' });
-  res.json({
-    success: true,
-    url: '/uploads/' + req.file.filename,
-    filename: req.file.filename,
-    message: 'Gambar berhasil diunggah.'
-  });
+app.post('/api/admin/upload', requireAuth, upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) return res.status(400).json({ error: 'Tidak ada file yang diunggah.' });
+    if (!supabase) return res.status(500).json({ error: 'Supabase client not initialized.' });
+
+    const unique = Date.now() + '-' + Math.round(Math.random() * 1e6);
+    const ext = path.extname(req.file.originalname).toLowerCase();
+    const filename = unique + ext;
+
+    const { data, error } = await supabase.storage
+      .from('uploads')
+      .upload(filename, req.file.buffer, {
+        contentType: req.file.mimetype,
+        cacheControl: '3600',
+        upsert: false
+      });
+
+    if (error) throw error;
+
+    const { data: urlData } = supabase.storage
+      .from('uploads')
+      .getPublicUrl(filename);
+
+    res.json({
+      success: true,
+      url: urlData.publicUrl,
+      filename: filename,
+      message: 'Gambar berhasil diunggah.'
+    });
+  } catch (err) {
+    console.error('Upload error:', err);
+    res.status(500).json({ error: err.message || 'Gagal mengunggah gambar.' });
+  }
 });
 
 // Upload error handler
