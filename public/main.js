@@ -274,7 +274,7 @@ async function loadCmsContent() {
         }
         if (timelineCtaBtn) {
           timelineCtaBtn.textContent = `Info ${latestProject.title.replace('Pesona Kahuripan ', 'PK ')} →`;
-          const phoneNum = data.settings?.phone || '6287772463775';
+          const phoneNum = data.settings?.phone || '6282124964151';
           timelineCtaBtn.href = `https://wa.me/${phoneNum}?text=${encodeURIComponent(latestProject.waMessage)}`;
         }
       }
@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (pesan) msg += `Pesan: ${pesan}\n`;
       msg += `\nSaya ingin mengetahui lebih lanjut tentang hunian Pesona Kahuripan. Terima kasih!`;
 
-      const waNumber = '6287772463775';
+      const waNumber = '6282124964151';
       const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`;
       window.open(waUrl, '_blank', 'noopener');
     });
@@ -597,7 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('modal-project-features').textContent = project.features;
  
     // Update WhatsApp link
-    let phoneNum = '6287772463775';
+    let phoneNum = '6282124964151';
     if (window.cmsData && window.cmsData.settings && window.cmsData.settings.phone) {
       phoneNum = window.cmsData.settings.phone;
     }
@@ -656,7 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (textEl) textEl.innerHTML = item.excerpt.replace(/\n/g, '<br>');
 
     // WA link for follow-up
-    let phoneNum = '6287772463775';
+    let phoneNum = '6282124964151';
     if (window.cmsData && window.cmsData.settings && window.cmsData.settings.phone) {
       phoneNum = window.cmsData.settings.phone;
     }
@@ -825,7 +825,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Set WA href
-    let phoneNum = '6287772463775';
+    let phoneNum = '6282124964151';
     if (window.cmsData && window.cmsData.settings && window.cmsData.settings.phone) {
       phoneNum = window.cmsData.settings.phone;
     }

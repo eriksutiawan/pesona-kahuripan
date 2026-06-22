@@ -78,8 +78,8 @@ async function initDatabase() {
     settings: {
       company_name: 'Pesona Kahuripan Group',
       tagline: 'Membangun Hunian Impian Keluarga Indonesia',
-      phone: '6287772463775',
-      phone_display: '0877-7246-3775',
+      phone: '6282124964151',
+      phone_display: '0821-2496-4151',
       address: 'Jl. Pesona Kahuripan 1, Desa Cikahuripan, Kec. Klapanunggal, Kab. Bogor, Jawa Barat',
       hours: 'Setiap Hari: 08.00 – 21.00 WIB',
       about_title: 'Membangun Mimpi, Satu Rumah di Satu Waktu',
@@ -242,7 +242,7 @@ async function initDatabase() {
       {
         id: 'faq-5',
         question: 'Apakah Pesona Kahuripan 12 sudah bisa dipesan sekarang?',
-        answer: 'Ya! Pesona Kahuripan 12 cluster terbaru sudah bisa dipesan. Lokasi di pinggir Jalan Provinsi, tersedia rumah subsidi dan komersial, ready stock. Hubungi 0877-7246-3775.',
+        answer: 'Ya! Pesona Kahuripan 12 cluster terbaru sudah bisa dipesan. Lokasi di pinggir Jalan Provinsi, tersedia rumah subsidi dan komersial, ready stock. Hubungi 0821-2496-4151.',
         order: 5,
         created_at: new Date().toISOString()
       }
