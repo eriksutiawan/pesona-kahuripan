@@ -2,6 +2,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { dbGet } = require('../database');
+const { signSession } = require('../sessionHelper');
 const router = express.Router();
 
 // POST /api/auth/login
@@ -20,8 +21,13 @@ router.post('/login', async (req, res) => {
     if (!valid) {
       return res.status(401).json({ error: 'Username atau password salah.' });
     }
-    req.session.adminId = user.id;
-    req.session.adminName = user.name;
+    const token = signSession({ adminId: user.id, adminName: user.name });
+    res.cookie('pk_session', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production' || !!process.env.VERCEL,
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    });
     res.json({ success: true, name: user.name, message: 'Login berhasil!' });
   } catch (err) {
     console.error('Login error:', err);
@@ -31,9 +37,8 @@ router.post('/login', async (req, res) => {
 
 // POST /api/auth/logout
 router.post('/logout', (req, res) => {
-  req.session.destroy(() => {
-    res.json({ success: true, message: 'Logout berhasil.' });
-  });
+  res.clearCookie('pk_session');
+  res.json({ success: true, message: 'Logout berhasil.' });
 });
 
 // GET /api/auth/check

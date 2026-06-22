@@ -1,6 +1,5 @@
 // server/server.js — Main Express Server
 const express = require('express');
-const session = require('express-session');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -32,12 +31,28 @@ const upload = multer({
 // ─── Middleware ─────────────────────────────────────────
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(session({
-  secret: 'pk-cms-secret-2024-pesona-kahuripan',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 24 * 60 * 60 * 1000 } // 24 hours
-}));
+const { verifySession } = require('./sessionHelper');
+app.use((req, res, next) => {
+  req.session = {};
+  const cookieHeader = req.headers.cookie;
+  if (cookieHeader) {
+    const cookies = {};
+    cookieHeader.split(';').forEach(c => {
+      const parts = c.split('=');
+      if (parts.length >= 2) {
+        cookies[parts.shift().trim()] = decodeURIComponent(parts.join('='));
+      }
+    });
+    const token = cookies['pk_session'];
+    if (token) {
+      const sessionData = verifySession(token);
+      if (sessionData) {
+        req.session = sessionData;
+      }
+    }
+  }
+  next();
+});
 
 // ─── Static Files ───────────────────────────────────────
 // Serve public images (original website assets)
