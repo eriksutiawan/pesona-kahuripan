@@ -61,8 +61,10 @@ async function loadCmsContent() {
       // Hours
       document.querySelectorAll('.company-hours').forEach(el => { if(s.hours) el.textContent = s.hours; });
       // Social links
-      if (s.instagram) { const ig = document.querySelector('a[href*="instagram"]'); if (ig) ig.href = s.instagram; }
-      if (s.facebook) { const fb = document.querySelector('a[href*="facebook"]'); if (fb) fb.href = s.facebook; }
+      if (s.instagram) { const ig = document.getElementById('social-ig'); if (ig) ig.href = s.instagram; }
+      if (s.facebook) { const fb = document.getElementById('social-fb'); if (fb) fb.href = s.facebook; }
+      if (s.youtube) { const yt = document.getElementById('social-yt'); if (yt) yt.href = s.youtube; }
+      if (s.tiktok) { const tt = document.getElementById('social-tt'); if (tt) tt.href = s.tiktok; }
     }
 
     // ── Products ──────────────────────────────────

@@ -437,7 +437,8 @@ async function loadSettings() {
   setVal('s-phone', s.phone); setVal('s-phone-display', s.phone_display);
   setVal('s-address', s.address); setVal('s-hours', s.hours);
   setVal('s-founded', s.founded_year); setVal('s-instagram', s.instagram);
-  setVal('s-facebook', s.facebook); setVal('s-maps-url', s.maps_url);
+  setVal('s-facebook', s.facebook); setVal('s-youtube', s.youtube);
+  setVal('s-tiktok', s.tiktok); setVal('s-maps-url', s.maps_url);
   setVal('s-about-title', s.about_title);
   if (el('s-about-text')) el('s-about-text').value = s.about_text || '';
   if (el('s-about-text2')) el('s-about-text2').value = s.about_text2 || '';
@@ -449,7 +450,8 @@ el('btn-save-settings').addEventListener('click', async () => {
     company_name: val('s-company'), tagline: val('s-tagline'),
     phone: val('s-phone'), phone_display: val('s-phone-display'),
     address: val('s-address'), hours: val('s-hours'), founded_year: val('s-founded'),
-    instagram: val('s-instagram'), facebook: val('s-facebook'), maps_url: val('s-maps-url'),
+    instagram: val('s-instagram'), facebook: val('s-facebook'),
+    youtube: val('s-youtube'), tiktok: val('s-tiktok'), maps_url: val('s-maps-url'),
     about_title: val('s-about-title'),
     about_text: el('s-about-text')?.value?.trim(),
     about_text2: el('s-about-text2')?.value?.trim(),
