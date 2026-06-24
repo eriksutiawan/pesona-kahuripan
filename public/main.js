@@ -881,4 +881,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Expose switcher globally
   window.switchCardTab = switchCardTab;
+
+  // ---- LAZY LOAD GOOGLE MAPS IFRAME ----
+  const mapIframe = document.querySelector('.map-container iframe');
+  if (mapIframe) {
+    const mapObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const src = mapIframe.getAttribute('data-src');
+          if (src) {
+            mapIframe.src = src;
+            mapIframe.removeAttribute('data-src');
+          }
+          mapObserver.disconnect();
+        }
+      });
+    }, { rootMargin: '300px 0px' });
+    mapObserver.observe(mapIframe);
+  }
 });
