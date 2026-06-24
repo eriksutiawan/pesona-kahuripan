@@ -19,14 +19,13 @@ User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
 
-# Allow all crawlers for image files
+# Allow Google Image crawler to index all images (including CMS uploads)
 User-agent: Googlebot-Image
-Allow: /hero.png
-Allow: /house_subsidi.png
-Allow: /house_komersil.png
-Allow: /house_exterior.png
-Allow: /interior.png
-Allow: /neighborhood.png
+Allow: /
+
+# Allow Google Search Console inspection tools
+User-agent: Google-InspectionTool
+Allow: /
 
 User-agent: Bingbot
 Allow: /
