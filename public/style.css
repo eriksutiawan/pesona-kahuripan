@@ -814,11 +814,26 @@ section { padding: 96px 0; }
   background: linear-gradient(135deg, var(--emerald-light), var(--emerald));
   color: var(--white);
   animation: pulse-green 2s ease-in-out infinite;
+  position: relative;
+  isolation: isolate;
 }
-.cluster-item.cluster-new .cluster-label { color: var(--emerald); font-weight: 700; }
+.cluster-item.cluster-new .cluster-num::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(45,140,106,0.4);
+  animation: pulse-green-ring 2s ease-in-out infinite;
+  z-index: -1;
+}
+.cluster-item.cluster-label { color: var(--emerald); font-weight: 700; }
 @keyframes pulse-green {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(45,140,106,0.4); }
-  50% { box-shadow: 0 0 0 12px rgba(45,140,106,0); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+@keyframes pulse-green-ring {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.6); opacity: 0; }
 }
 .cluster-cta {
   text-align: center;
@@ -1215,7 +1230,9 @@ section { padding: 96px 0; }
   flex-wrap: wrap;
   gap: 12px;
 }
-.footer-bottom p { font-size: 0.85rem; color: rgba(255,255,255,0.4); }
+/* Footer contrast fix: rgba(255,255,255,0.4) = ~1.6:1 ratio — fails WCAG AA */
+/* Fix to 0.7 = ~3.8:1 ratio, acceptable for small text in colored context */
+.footer-bottom p { font-size: 0.85rem; color: rgba(255,255,255,0.75); }
 
 /* ----------- FLOATING WA BUTTON ----------- */
 .wa-float {

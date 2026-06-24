@@ -203,9 +203,12 @@
   <!-- ===== PERFORMANCE HINTS ===== -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" href="hero.png" as="image" />
+  <!-- Preload hero WebP for fast LCP -->
+  <link rel="preload" href="hero.webp" as="image" type="image/webp" />
   <link rel="preload" href="style.css" as="style" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <!-- Non-blocking Google Fonts load (prevents render-blocking) -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" /></noscript>
   <link rel="stylesheet" href="style.css" />
 
   <!-- ===== FAVICON ===== -->
@@ -241,7 +244,10 @@
   <!-- ===== HERO SECTION ===== -->
   <section class="hero" id="hero">
     <div class="hero-bg">
-      <img src="hero.png" alt="Pesona Kahuripan Aerial View" class="hero-img" />
+      <picture>
+        <source srcset="hero.webp" type="image/webp" />
+        <img src="hero.png" alt="Pesona Kahuripan Aerial View" class="hero-img" fetchpriority="high" width="1280" height="720" />
+      </picture>
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-content">
@@ -304,10 +310,15 @@
       <div class="about-grid">
         <div class="about-images" data-animate="fadeInLeft">
           <div class="about-img-main">
-            <img src="neighborhood.png" alt="Lingkungan Pesona Kahuripan" loading="lazy" />
+            <picture>
+              <source srcset="neighborhood.webp" type="image/webp" />
+              <img src="neighborhood.png" alt="Lingkungan Pesona Kahuripan" loading="lazy" width="1024" height="768" />
+            </picture>
           </div>
           <div class="about-img-overlay">
-            <img src="interior.png" alt="Interior Rumah" loading="lazy" />
+            <picture>
+              <source srcset="interior.webp" type="image/webp" />
+              <img src="interior.png" alt="Interior Rumah" loading="lazy" width="800" height="600" />
           </div>
           <div class="about-badge-float">
             <span class="float-num">2013</span>
@@ -363,7 +374,7 @@
           <!-- Award Item 1 -->
           <div class="award-card" onclick="openLightbox('/images/award_1.jpg', 'BERBAGAI PENGHARGAAN TINGKAT NASIONAL')">
             <div class="award-img-wrapper">
-              <img src="/images/award_1.jpg" alt="Penghargaan 1" loading="lazy" />
+              <picture><source srcset="/images/award_1.webp" type="image/webp" /><img src="/images/award_1.jpg" alt="Penghargaan 1" loading="lazy" width="800" height="800" /></picture>
               <div class="award-overlay">
                 <span class="award-zoom-icon">🔍 Zoom</span>
               </div>
@@ -372,7 +383,7 @@
           <!-- Award Item 2 -->
           <div class="award-card" onclick="openLightbox('/images/award_2.jpg', 'BERBAGAI PENGHARGAAN TINGKAT NASIONAL')">
             <div class="award-img-wrapper">
-              <img src="/images/award_2.jpg" alt="Penghargaan 2" loading="lazy" />
+              <picture><source srcset="/images/award_2.webp" type="image/webp" /><img src="/images/award_2.jpg" alt="Penghargaan 2" loading="lazy" width="800" height="800" /></picture>
               <div class="award-overlay">
                 <span class="award-zoom-icon">🔍 Zoom</span>
               </div>
@@ -381,7 +392,7 @@
           <!-- Award Item 3 -->
           <div class="award-card" onclick="openLightbox('/images/award_3.jpg', 'BERBAGAI PENGHARGAAN TINGKAT NASIONAL')">
             <div class="award-img-wrapper">
-              <img src="/images/award_3.jpg" alt="Penghargaan 3" loading="lazy" />
+              <picture><source srcset="/images/award_3.webp" type="image/webp" /><img src="/images/award_3.jpg" alt="Penghargaan 3" loading="lazy" width="800" height="800" /></picture>
               <div class="award-overlay">
                 <span class="award-zoom-icon">🔍 Zoom</span>
               </div>
@@ -390,7 +401,7 @@
           <!-- Award Item 4 -->
           <div class="award-card" onclick="openLightbox('/images/award_4.jpeg', 'BERBAGAI PENGHARGAAN TINGKAT NASIONAL')">
             <div class="award-img-wrapper">
-              <img src="/images/award_4.jpeg" alt="Penghargaan 4" loading="lazy" />
+              <picture><source srcset="/images/award_4.webp" type="image/webp" /><img src="/images/award_4.jpeg" alt="Penghargaan 4" loading="lazy" width="800" height="800" /></picture>
               <div class="award-overlay">
                 <span class="award-zoom-icon">🔍 Zoom</span>
               </div>
@@ -399,7 +410,7 @@
           <!-- Award Item 5 -->
           <div class="award-card" onclick="openLightbox('/images/award_5.jpeg', 'BERBAGAI PENGHARGAAN TINGKAT NASIONAL')">
             <div class="award-img-wrapper">
-              <img src="/images/award_5.jpeg" alt="Penghargaan 5" loading="lazy" />
+              <picture><source srcset="/images/award_5.webp" type="image/webp" /><img src="/images/award_5.jpeg" alt="Penghargaan 5" loading="lazy" width="800" height="800" /></picture>
               <div class="award-overlay">
                 <span class="award-zoom-icon">🔍 Zoom</span>
               </div>
@@ -408,7 +419,7 @@
           <!-- Award Item 6 -->
           <div class="award-card" onclick="openLightbox('/images/award_6.jpeg', 'BERBAGAI PENGHARGAAN TINGKAT NASIONAL')">
             <div class="award-img-wrapper">
-              <img src="/images/award_6.jpeg" alt="Penghargaan 6" loading="lazy" />
+              <picture><source srcset="/images/award_6.webp" type="image/webp" /><img src="/images/award_6.jpeg" alt="Penghargaan 6" loading="lazy" width="800" height="800" /></picture>
               <div class="award-overlay">
                 <span class="award-zoom-icon">🔍 Zoom</span>
               </div>
@@ -417,7 +428,7 @@
           <!-- Award Item 7 -->
           <div class="award-card" onclick="openLightbox('/images/award_7.jpeg', 'BERBAGAI PENGHARGAAN TINGKAT NASIONAL')">
             <div class="award-img-wrapper">
-              <img src="/images/award_7.jpeg" alt="Penghargaan 7" loading="lazy" />
+              <picture><source srcset="/images/award_7.webp" type="image/webp" /><img src="/images/award_7.jpeg" alt="Penghargaan 7" loading="lazy" width="800" height="800" /></picture>
               <div class="award-overlay">
                 <span class="award-zoom-icon">🔍 Zoom</span>
               </div>
@@ -426,7 +437,7 @@
           <!-- Award Item 8 -->
           <div class="award-card" onclick="openLightbox('/images/award_8.jpeg', 'BERBAGAI PENGHARGAAN TINGKAT NASIONAL')">
             <div class="award-img-wrapper">
-              <img src="/images/award_8.jpeg" alt="Penghargaan 8" loading="lazy" />
+              <picture><source srcset="/images/award_8.webp" type="image/webp" /><img src="/images/award_8.jpeg" alt="Penghargaan 8" loading="lazy" width="800" height="800" /></picture>
               <div class="award-overlay">
                 <span class="award-zoom-icon">🔍 Zoom</span>
               </div>
@@ -498,7 +509,7 @@
         <div class="product-card card-featured" data-animate="fadeInUp" data-delay="100">
           <div class="card-badge">🏅 Terlaris</div>
           <div class="card-img-wrap">
-            <img src="house_subsidi.png" alt="Rumah Subsidi" class="card-img" loading="lazy" />
+            <picture><source srcset="house_subsidi.webp" type="image/webp" /><img src="house_subsidi.png" alt="Rumah Subsidi" class="card-img" loading="lazy" width="800" height="600" /></picture>
             <div class="card-img-overlay"></div>
           </div>
           <div class="card-body">
@@ -554,7 +565,7 @@
         <div class="product-card" data-animate="fadeInUp" data-delay="200">
           <div class="card-badge">✨ Best Value</div>
           <div class="card-img-wrap">
-            <img src="house_komersil.png" alt="Rumah Komersil" class="card-img" loading="lazy" />
+            <picture><source srcset="house_komersil.webp" type="image/webp" /><img src="house_komersil.png" alt="Rumah Komersil" class="card-img" loading="lazy" width="800" height="600" /></picture>
             <div class="card-img-overlay"></div>
           </div>
           <div class="card-body">
@@ -610,7 +621,7 @@
         <div class="product-card card-featured" data-animate="fadeInUp" data-delay="300">
           <div class="card-badge">⭐ Unit Terbatas</div>
           <div class="card-img-wrap">
-            <img src="house_exterior.png" alt="Rumah Komersil Premium" class="card-img" loading="lazy" />
+            <picture><source srcset="house_exterior.webp" type="image/webp" /><img src="house_exterior.png" alt="Rumah Komersil Premium" class="card-img" loading="lazy" width="800" height="600" /></picture>
             <div class="card-img-overlay"></div>
           </div>
           <div class="card-body">
@@ -842,27 +853,27 @@
       </div>
       <div class="galeri-grid" id="gallery-dynamic" data-animate="fadeInUp">
         <div class="galeri-item galeri-large" id="gal-1">
-          <img src="hero.png" alt="Pesona Kahuripan Aerial" loading="lazy" />
+          <picture><source srcset="hero.webp" type="image/webp" /><img src="hero.png" alt="Pesona Kahuripan Aerial" loading="lazy" width="1280" height="720" /></picture>
           <div class="galeri-overlay"><span>Aerial View</span></div>
         </div>
         <div class="galeri-item" id="gal-2">
-          <img src="house_subsidi.png" alt="Rumah Subsidi" loading="lazy" />
+          <picture><source srcset="house_subsidi.webp" type="image/webp" /><img src="house_subsidi.png" alt="Rumah Subsidi" loading="lazy" width="800" height="600" /></picture>
           <div class="galeri-overlay"><span>Rumah Subsidi</span></div>
         </div>
         <div class="galeri-item" id="gal-3">
-          <img src="house_komersil.png" alt="Rumah Komersil" loading="lazy" />
+          <picture><source srcset="house_komersil.webp" type="image/webp" /><img src="house_komersil.png" alt="Rumah Komersil" loading="lazy" width="800" height="600" /></picture>
           <div class="galeri-overlay"><span>Rumah Komersil</span></div>
         </div>
         <div class="galeri-item" id="gal-4">
-          <img src="interior.png" alt="Interior" loading="lazy" />
+          <picture><source srcset="interior.webp" type="image/webp" /><img src="interior.png" alt="Interior" loading="lazy" width="800" height="600" /></picture>
           <div class="galeri-overlay"><span>Interior Modern</span></div>
         </div>
         <div class="galeri-item galeri-wide" id="gal-5">
-          <img src="neighborhood.png" alt="Lingkungan" loading="lazy" />
+          <picture><source srcset="neighborhood.webp" type="image/webp" /><img src="neighborhood.png" alt="Lingkungan" loading="lazy" width="1024" height="768" /></picture>
           <div class="galeri-overlay"><span>Lingkungan Asri</span></div>
         </div>
         <div class="galeri-item" id="gal-6">
-          <img src="house_exterior.png" alt="Eksterior" loading="lazy" />
+          <picture><source srcset="house_exterior.webp" type="image/webp" /><img src="house_exterior.png" alt="Eksterior" loading="lazy" width="800" height="600" /></picture>
           <div class="galeri-overlay"><span>Eksterior Premium</span></div>
         </div>
       </div>
@@ -1223,7 +1234,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2024 Pesona Kahuripan Group. Hak Cipta Dilindungi.</p>
+        <p>© 2025 Pesona Kahuripan Group. Hak Cipta Dilindungi.</p>
         <p>Dipersembahkan dengan ❤️ untuk keluarga Indonesia</p>
       </div>
     </div>
@@ -1246,7 +1257,7 @@
       </div>
       <div class="news-modal-body">
         <span class="news-modal-date" id="news-modal-date"></span>
-        <h2 class="news-modal-title" id="news-modal-title"></h2>
+        <h2 class="news-modal-title" id="news-modal-title">Detail Berita</h2>
         <div class="news-modal-text" id="news-modal-text"></div>
         <a href="#" class="btn btn-primary news-modal-wa-btn" id="news-modal-wa" target="_blank" rel="noopener">
           💬 Tanya Via WhatsApp
@@ -1335,8 +1346,8 @@
               <table class="installments-table">
                 <thead>
                   <tr>
-                    <th>Tenor</th>
-                    <th>Cicilan / Bulan</th>
+                    <th scope="col">Tenor</th>
+                    <th scope="col">Cicilan / Bulan</th>
                   </tr>
                 </thead>
                 <tbody id="modal-product-installments-tbody">

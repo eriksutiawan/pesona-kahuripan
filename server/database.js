@@ -16,44 +16,74 @@ const supabaseKey = process.env.SUPABASE_KEY;
 
 let supabase = null;
 let localDb = null;
+let supabaseDown = false; // Track if Supabase is unreachable to skip retries
+const SUPABASE_TIMEOUT_MS = 2000; // Max 2s before falling back
 
-if (supabaseUrl && supabaseKey) {
-  supabase = createClient(supabaseUrl, supabaseKey);
-  console.log('✅ Supabase client initialized (Cloud Database mode)');
-} else {
-  console.log('⚠️ Supabase credentials missing. Falling back to local db.json.');
+// Always initialize local DB as fallback
+try {
   const low = require('lowdb');
   const FileSync = require('lowdb/adapters/FileSync');
   const dbPath = path.join(__dirname, '../db.json');
   const adapter = new FileSync(dbPath);
   localDb = low(adapter);
-  console.log('✅ Local Database initialized (Local db.json mode)');
+} catch (e) {
+  console.warn('⚠️ Could not initialize local db.json:', e.message);
+}
+
+if (supabaseUrl && supabaseKey) {
+  supabase = createClient(supabaseUrl, supabaseKey, {
+    global: { fetch: (url, opts) => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), SUPABASE_TIMEOUT_MS);
+      return fetch(url, { ...opts, signal: controller.signal }).finally(() => clearTimeout(timeout));
+    }}
+  });
+  console.log('✅ Supabase client initialized (Cloud Database mode with local fallback)');
+} else {
+  console.log('⚠️ Supabase credentials missing. Using local db.json.');
 }
 
 async function dbGet(key) {
-  if (supabase) {
-    const { data, error } = await supabase.from('contents').select('value').eq('id', key).single();
-    if (error) {
-      if (error.code === 'PGRST116') { // Record not found
-        return null;
+  // Use Supabase if available and not known-down
+  if (supabase && !supabaseDown) {
+    try {
+      const { data, error } = await supabase.from('contents').select('value').eq('id', key).single();
+      if (error) {
+        if (error.code === 'PGRST116') return null; // Not found
+        throw error;
       }
-      throw error;
+      return data ? data.value : null;
+    } catch (err) {
+      console.warn(`⚠️ Supabase error for key '${key}', falling back to local db:`, err.message);
+      // Mark Supabase as down for 30s to avoid repeated timeouts
+      if (!supabaseDown) {
+        supabaseDown = true;
+        setTimeout(() => { supabaseDown = false; }, 30000);
+      }
     }
-    return data ? data.value : null;
-  } else {
-    return localDb.get(key).value();
   }
+  // Fallback to local db
+  if (localDb) return localDb.get(key).value();
+  return null;
 }
 
 async function dbSet(key, value) {
-  if (supabase) {
-    const { error } = await supabase.from('contents').upsert({ id: key, value, updated_at: new Date().toISOString() });
-    if (error) throw error;
-    return true;
-  } else {
+  // Try Supabase first
+  if (supabase && !supabaseDown) {
+    try {
+      const { error } = await supabase.from('contents').upsert({ id: key, value, updated_at: new Date().toISOString() });
+      if (error) throw error;
+      return true;
+    } catch (err) {
+      console.warn(`⚠️ Supabase write error for key '${key}', saving to local db:`, err.message);
+    }
+  }
+  // Fallback to local db
+  if (localDb) {
     localDb.set(key, value).write();
     return true;
   }
+  throw new Error('No database available');
 }
 
 async function initDatabase() {

@@ -54,6 +54,59 @@ app.use((req, res, next) => {
   next();
 });
 
+// ─── Production Minified Assets ──────────────────────────
+if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
+  app.get('/style.css', (req, res, next) => {
+    const minPath = path.join(__dirname, '../public/style.min.css');
+    if (fs.existsSync(minPath)) {
+      res.setHeader('Content-Type', 'text/css');
+      return res.sendFile(minPath);
+    }
+    next();
+  });
+  app.get('/main.js', (req, res, next) => {
+    const minPath = path.join(__dirname, '../public/main.min.js');
+    if (fs.existsSync(minPath)) {
+      res.setHeader('Content-Type', 'application/javascript');
+      return res.sendFile(minPath);
+    }
+    next();
+  });
+}
+
+// ─── Fallback for missing images (e.g. JPG vs PNG vs WebP) ───
+app.use((req, res, next) => {
+  const ext = path.extname(req.path).toLowerCase();
+  if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) {
+    let relPath = req.path;
+    if (relPath.startsWith('/images/')) {
+      relPath = relPath.substring(7); // Strip /images prefix
+    }
+    const localPath = path.join(__dirname, '../public', relPath);
+    if (!fs.existsSync(localPath)) {
+      const dirName = path.dirname(relPath);
+      const baseName = path.basename(relPath, ext);
+      const extensions = ['.webp', '.png', '.jpg', '.jpeg'];
+      for (const altExt of extensions) {
+        if (altExt === ext) continue;
+        const altRelPath = path.join(dirName, baseName + altExt);
+        const altPath = path.join(__dirname, '../public', altRelPath);
+        if (fs.existsSync(altPath)) {
+          const contentTypes = {
+            '.webp': 'image/webp',
+            '.png': 'image/png',
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg'
+          };
+          res.setHeader('Content-Type', contentTypes[altExt]);
+          return res.sendFile(altPath);
+        }
+      }
+    }
+  }
+  next();
+});
+
 // ─── Static Files ───────────────────────────────────────
 // Serve public images (original website assets)
 app.use('/images', express.static(path.join(__dirname, '../public')));
