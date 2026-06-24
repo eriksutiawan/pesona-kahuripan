@@ -355,7 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       navbar.classList.remove('scrolled');
     }
-    updateActiveNav();
   };
   window.addEventListener('scroll', handleScroll, { passive: true });
 
@@ -384,21 +383,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---- ACTIVE NAV HIGHLIGHT ----
   const sections = document.querySelectorAll('section[id]');
-  function updateActiveNav() {
-    const scrollY = window.scrollY;
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 120;
-      const sectionHeight = section.offsetHeight;
-      const id = section.getAttribute('id');
-      const navLink = document.querySelector(`.nav-link[href="#${id}"]`);
-      if (navLink) {
-        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-          document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-          navLink.classList.add('active');
+  const navLinksList = document.querySelectorAll('.nav-link');
+  const navObserverOptions = {
+    root: null,
+    rootMargin: '-20% 0px -60% 0px',
+    threshold: 0
+  };
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+        if (activeLink) {
+          navLinksList.forEach(link => link.classList.remove('active'));
+          activeLink.classList.add('active');
         }
       }
     });
-  }
+  }, navObserverOptions);
+  sections.forEach(section => navObserver.observe(section));
 
   // ---- INTERSECTION OBSERVER FOR ANIMATIONS ----
   const animElements = document.querySelectorAll('[data-animate]');
