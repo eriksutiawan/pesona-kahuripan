@@ -149,14 +149,30 @@ app.post('/api/admin/upload', requireAuth, upload.single('image'), async (req, r
 
     const unique = Date.now() + '-' + Math.round(Math.random() * 1e6);
     const ext = path.extname(req.file.originalname).toLowerCase();
-    const filename = unique + ext;
+    
+    let uploadBuffer = req.file.buffer;
+    let filename = unique + '.webp';
+    let mimeType = 'image/webp';
+    
+    // Compress and convert to WebP using sharp on-the-fly
+    try {
+      const sharp = require('sharp');
+      uploadBuffer = await sharp(req.file.buffer)
+        .resize({ width: 1200, withoutEnlargement: true }) // Limit size to 1200px width
+        .webp({ quality: 75 }) // High compression WebP quality 75
+        .toBuffer();
+    } catch (sharpErr) {
+      console.warn('⚠️ Sharp compression failed, using original upload:', sharpErr.message);
+      filename = unique + ext;
+      mimeType = req.file.mimetype;
+    }
 
     if (supabase) {
       const { data, error } = await supabase.storage
         .from('uploads')
-        .upload(filename, req.file.buffer, {
-          contentType: req.file.mimetype,
-          cacheControl: '3600',
+        .upload(filename, uploadBuffer, {
+          contentType: mimeType,
+          cacheControl: '31536000', // Cache uploads for 1 year since filenames are unique
           upsert: false
         });
 
@@ -170,16 +186,16 @@ app.post('/api/admin/upload', requireAuth, upload.single('image'), async (req, r
         success: true,
         url: urlData.publicUrl,
         filename: filename,
-        message: 'Gambar berhasil diunggah.'
+        message: 'Gambar berhasil diunggah dan dikompresi.'
       });
     } else {
       const filePath = path.join(uploadsDir, filename);
-      fs.writeFileSync(filePath, req.file.buffer);
+      fs.writeFileSync(filePath, uploadBuffer);
       res.json({
         success: true,
         url: `/uploads/${filename}`,
         filename: filename,
-        message: 'Gambar berhasil diunggah secara lokal.'
+        message: 'Gambar berhasil diunggah secara lokal dan dikompresi.'
       });
     }
   } catch (err) {
