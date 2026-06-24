@@ -54,8 +54,30 @@ app.use((req, res, next) => {
   next();
 });
 
-// ─── Production Minified Assets ──────────────────────────
+// ─── Production Minified Assets & Inline CSS ──────────────
 if (process.env.NODE_ENV === 'production' || process.env.VERCEL) {
+  let _indexHtmlCache = null;
+  app.get(['/', '/index.html'], (req, res, next) => {
+    if (_indexHtmlCache) {
+      return res.send(_indexHtmlCache);
+    }
+    try {
+      const indexPath = path.join(__dirname, '../public/index.html');
+      let html = fs.readFileSync(indexPath, 'utf-8');
+      const cssPath = path.join(__dirname, '../public/style.min.css');
+      if (fs.existsSync(cssPath)) {
+        const cssContent = fs.readFileSync(cssPath, 'utf-8');
+        html = html.replace(/<link rel="preload" href="style\.css" as="style"\s*\/?>/i, '');
+        html = html.replace(/<link rel="stylesheet" href="style\.css"\s*\/?>/i, `<style>${cssContent}</style>`);
+        _indexHtmlCache = html;
+        return res.send(html);
+      }
+    } catch (err) {
+      console.error('Failed to inline CSS:', err);
+    }
+    next();
+  });
+
   app.get('/style.css', (req, res, next) => {
     const minPath = path.join(__dirname, '../public/style.min.css');
     if (fs.existsSync(minPath)) {
