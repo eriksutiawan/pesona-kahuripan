@@ -19,6 +19,7 @@ User-agent: Googlebot
 Allow: /
 Crawl-delay: 0
 
+# Allow all crawlers for image files
 User-agent: Googlebot-Image
 Allow: /hero.png
 Allow: /house_subsidi.png
