@@ -82,7 +82,7 @@
           "value": "Rp 1.910.587 /bln"
         }
       ],
-      "image": "/images/house_subsidi.jpg",
+      "image": "/images/house_subsidi.png",
       "is_featured": true,
       "badge": "🏅 Terlaris",
       "wa_message": "Halo, saya tertarik dengan Rumah Subsidi Tipe 30/60 FLPP",
@@ -116,7 +116,7 @@
           "value": "Rp 3.820.000 /bln"
         }
       ],
-      "image": "/images/house_komersil.jpg",
+      "image": "/images/house_komersil.png",
       "is_featured": false,
       "badge": "✨ Best Value",
       "wa_message": "Halo, saya tertarik dengan Rumah Komersil Tipe 36/72 Modern",
@@ -150,7 +150,7 @@
           "value": "Rp 4.650.000 /bln"
         }
       ],
-      "image": "/images/house_exterior.jpg",
+      "image": "/images/house_exterior.png",
       "is_featured": true,
       "badge": "⭐ Unit Terbatas",
       "wa_message": "Halo, saya tertarik dengan Rumah Komersil Premium Tipe 42/90 Mewah",
@@ -193,42 +193,42 @@
   "gallery": [
     {
       "id": "gal-1",
-      "url": "/images/hero.jpg",
+      "url": "/images/hero.png",
       "caption": "Aerial View Perumahan",
       "order": 1,
       "created_at": "2026-06-21T12:03:16.655Z"
     },
     {
       "id": "gal-2",
-      "url": "/images/house_subsidi.jpg",
+      "url": "/images/house_subsidi.png",
       "caption": "Rumah Subsidi",
       "order": 2,
       "created_at": "2026-06-21T12:03:16.655Z"
     },
     {
       "id": "gal-3",
-      "url": "/images/house_komersil.jpg",
+      "url": "/images/house_komersil.png",
       "caption": "Rumah Komersil",
       "order": 3,
       "created_at": "2026-06-21T12:03:16.655Z"
     },
     {
       "id": "gal-4",
-      "url": "/images/interior.jpg",
+      "url": "/images/interior.png",
       "caption": "Interior Modern",
       "order": 4,
       "created_at": "2026-06-21T12:03:16.655Z"
     },
     {
       "id": "gal-5",
-      "url": "/images/neighborhood.jpg",
+      "url": "/images/neighborhood.png",
       "caption": "Lingkungan Asri",
       "order": 5,
       "created_at": "2026-06-21T12:03:16.655Z"
     },
     {
       "id": "gal-6",
-      "url": "/images/house_exterior.jpg",
+      "url": "/images/house_exterior.png",
       "caption": "Eksterior Premium",
       "order": 6,
       "created_at": "2026-06-21T12:03:16.655Z"
