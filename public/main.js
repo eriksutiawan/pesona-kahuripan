@@ -16,6 +16,12 @@ async function loadCmsContent() {
     // ── Hero ──────────────────────────────────────
     if (data.hero) {
       const h = data.hero;
+      if (h.image) {
+        const heroImg = document.querySelector('.hero-bg img');
+        if (heroImg) heroImg.src = h.image;
+        const heroSource = document.querySelector('.hero-bg picture source');
+        if (heroSource) heroSource.srcset = h.image;
+      }
       const heroTitle = document.querySelector('.hero-title');
       if (heroTitle) heroTitle.innerHTML = `${h.title}<br/><em>${h.title_em}</em>`;
       const heroBadge = document.querySelector('.hero-badge');

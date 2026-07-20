@@ -98,6 +98,7 @@ async function initDatabase() {
       cta_primary_text: 'Lihat Produk',
       cta_primary_href: '#products',
       cta_wa_text: 'WhatsApp Sekarang',
+      image: 'hero.webp',
       updated_at: new Date().toISOString()
     },
     stats: [

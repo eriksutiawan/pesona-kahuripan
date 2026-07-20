@@ -119,6 +119,11 @@ async function loadHero() {
   setVal('hero-subtitle-units', h.subtitle_units);
   setVal('hero-cta-primary', h.cta_primary_text);
   setVal('hero-cta-wa', h.cta_wa_text);
+  setVal('hero-image', h.image || '');
+  if (h.image && el('hero-img-preview')) {
+    el('hero-img-preview').src = h.image;
+    el('hero-img-preview').classList.add('show');
+  }
 
   const sl = el('stats-list');
   sl.innerHTML = statsRes.data?.map(s => `
@@ -146,7 +151,7 @@ el('btn-save-hero').addEventListener('click', async () => {
     badge: val('hero-badge'), title: val('hero-title'), title_em: val('hero-title-em'),
     subtitle: val('hero-subtitle'), subtitle_highlight: val('hero-subtitle-highlight'),
     subtitle_units: val('hero-subtitle-units'), cta_primary_text: val('hero-cta-primary'),
-    cta_wa_text: val('hero-cta-wa')
+    cta_wa_text: val('hero-cta-wa'), image: val('hero-image')
   });
   r.success ? toast(r.message) : toast(r.error, 'error');
 });
@@ -175,6 +180,7 @@ setupImageUpload('prod-img-input', 'prod-img-preview', 'prod-image');
 setupImageUpload('gal-img-input', 'gal-img-preview', 'gal-image');
 setupImageUpload('news-img-input', 'news-img-preview', 'news-image');
 setupImageUpload('s-logo-input', 's-logo-preview', 's-logo-url');
+setupImageUpload('hero-img-input', 'hero-img-preview', 'hero-image');
 
 // ─── PRODUCTS ─────────────────────────────────────────
 async function loadProducts() {
