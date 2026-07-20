@@ -40,6 +40,11 @@ async function loadCmsContent() {
     // ── Settings ──────────────────────────────────
     if (data.settings) {
       const s = data.settings;
+      // Logo URL
+      if (s.logo_url) {
+        document.querySelectorAll('.logo-img').forEach(img => { img.src = s.logo_url; });
+        document.querySelectorAll('.logo picture source').forEach(src => { src.srcset = s.logo_url; });
+      }
       // Company name in logo
       const logoMain = document.querySelector('.logo-main');
       if (logoMain && s.company_name) logoMain.textContent = s.company_name.replace(' Group', '');

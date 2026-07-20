@@ -174,6 +174,7 @@ function setupImageUpload(inputId, previewId, hiddenId) {
 setupImageUpload('prod-img-input', 'prod-img-preview', 'prod-image');
 setupImageUpload('gal-img-input', 'gal-img-preview', 'gal-image');
 setupImageUpload('news-img-input', 'news-img-preview', 'news-image');
+setupImageUpload('s-logo-input', 's-logo-preview', 's-logo-url');
 
 // ─── PRODUCTS ─────────────────────────────────────────
 async function loadProducts() {
@@ -445,6 +446,11 @@ async function saveKeunggulan(id) {
 async function loadSettings() {
   const r = await api('GET', '/settings');
   const s = r.data || {};
+  setVal('s-logo-url', s.logo_url || '');
+  if (s.logo_url && el('s-logo-preview')) {
+    el('s-logo-preview').src = s.logo_url;
+    el('s-logo-preview').classList.add('show');
+  }
   setVal('s-company', s.company_name); setVal('s-tagline', s.tagline);
   setVal('s-phone', s.phone); setVal('s-phone-display', s.phone_display);
   setVal('s-address', s.address); setVal('s-hours', s.hours);
@@ -459,6 +465,7 @@ async function loadSettings() {
 
 el('btn-save-settings').addEventListener('click', async () => {
   const r = await api('PUT', '/settings', {
+    logo_url: val('s-logo-url'),
     company_name: val('s-company'), tagline: val('s-tagline'),
     phone: val('s-phone'), phone_display: val('s-phone-display'),
     address: val('s-address'), hours: val('s-hours'), founded_year: val('s-founded'),

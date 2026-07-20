@@ -106,6 +106,7 @@ async function initDatabase() {
       { id: 3, label: 'Tahun Pengalaman', value: '13+', icon: '🏆', order: 3 }
     ],
     settings: {
+      logo_url: '/logo.webp',
       company_name: 'Pesona Kahuripan Group',
       tagline: 'Membangun Hunian Impian Keluarga Indonesia',
       phone: '6282124964151',
