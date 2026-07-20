@@ -58,6 +58,8 @@ async function loadCmsContent() {
       const aboutTexts = document.querySelectorAll('.about-text');
       if (aboutTexts[0] && s.about_text) aboutTexts[0].innerHTML = s.about_text.replace(/\n/g, '<br>');
       if (aboutTexts[1] && s.about_text2) aboutTexts[1].innerHTML = s.about_text2.replace(/\n/g, '<br>');
+      const floatNum = document.querySelector('.float-num');
+      if (floatNum && s.founded_year) floatNum.textContent = s.founded_year;
       // Footer
       const footerDesc = document.querySelector('.footer-desc');
       if (footerDesc && s.footer_text) footerDesc.textContent = s.footer_text;
