@@ -159,6 +159,13 @@
         </div>
       </div>
       <div class="card">
+        <div class="card-title">📢 Running Ticker (Teks Berjalan Beranda)</div>
+        <div class="form-group full">
+          <label>Isi Teks Berjalan (Satu item per baris)</label>
+          <textarea id="hero-ticker" rows="4" placeholder="🏡 Pesona Kahuripan 12 – Kini Hadir!&#10;⭐ Lokasi Strategis di Pinggir Jalan Provinsi&#10;💰 DP Ringan & Cicilan Mulai 1 Jutaan&#10;🔑 Ready Stock – Bisa Langsung Huni"></textarea>
+        </div>
+      </div>
+      <div class="card">
         <div class="card-title">Statistik Perusahaan</div>
         <div id="stats-list"></div>
       </div>
@@ -306,7 +313,33 @@
         <div class="form-group"><label>Judul Tentang Kami</label><input type="text" id="s-about-title" /></div>
         <div class="form-group"><label>Paragraf 1</label><textarea id="s-about-text" rows="3"></textarea></div>
         <div class="form-group"><label>Paragraf 2</label><textarea id="s-about-text2" rows="3"></textarea></div>
-        <div class="form-group"><label>Teks Footer</label><textarea id="s-footer" rows="2"></textarea></div>
+        <div class="form-grid" style="margin-top:12px;">
+          <div class="form-group">
+            <label>Foto Utama Tentang Kami</label>
+            <div class="upload-zone" id="s-about-img1-zone" onclick="document.getElementById('s-about-img1-input').click()">
+              <div class="uz-icon">📷</div>
+              <div class="uz-text">Upload Foto 1 (Utama)</div>
+            </div>
+            <input type="file" id="s-about-img1-input" accept="image/*" style="display:none;" />
+            <img id="s-about-img1-preview" class="img-preview" style="max-height:100px;object-fit:cover;" />
+            <input type="hidden" id="s-about-img1-url" />
+          </div>
+          <div class="form-group">
+            <label>Foto Sekunder (Overlay)</label>
+            <div class="upload-zone" id="s-about-img2-zone" onclick="document.getElementById('s-about-img2-input').click()">
+              <div class="uz-icon">📷</div>
+              <div class="uz-text">Upload Foto 2 (Overlay)</div>
+            </div>
+            <input type="file" id="s-about-img2-input" accept="image/*" style="display:none;" />
+            <img id="s-about-img2-preview" class="img-preview" style="max-height:100px;object-fit:cover;" />
+            <input type="hidden" id="s-about-img2-url" />
+          </div>
+        </div>
+        <div class="form-group full" style="margin-top:12px;">
+          <label>Poin Keunggulan Tentang Kami (Format: Judul | Deskripsi, satu per baris)</label>
+          <textarea id="s-about-points" rows="4" placeholder="Double Dinding Eksklusif | Konstruksi dua lapis untuk kekuatan dan privasi maksimal&#10;Pengembang Terpercaya | Terdaftar resmi & berlisensi dengan rekam jejak terbukti&#10;Lokasi Strategis | Akses mudah ke pusat kota, jalan tol, dan fasilitas umum"></textarea>
+        </div>
+        <div class="form-group" style="margin-top:12px;"><label>Teks Footer</label><textarea id="s-footer" rows="2"></textarea></div>
       </div>
     </div>
 

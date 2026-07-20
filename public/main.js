@@ -28,6 +28,14 @@ async function loadCmsContent() {
       if (heroBadge) heroBadge.textContent = h.badge;
       const heroSub = document.querySelector('.hero-subtitle');
       if (heroSub) heroSub.innerHTML = `${h.subtitle}<br/>Cicilan mulai <strong>${h.subtitle_highlight}</strong> · Sudah lebih dari <strong>${h.subtitle_units}</strong> Terbangun`;
+      // Ticker
+      if (h.ticker && Array.isArray(h.ticker) && h.ticker.length) {
+        const tickerEl = document.querySelector('.ticker');
+        if (tickerEl) {
+          const itemsHtml = h.ticker.map(t => `<span>${t}</span>`).join('');
+          tickerEl.innerHTML = itemsHtml + itemsHtml; // duplicate for seamless marquee loop
+        }
+      }
     }
 
     // ── Stats ─────────────────────────────────────
@@ -56,8 +64,8 @@ async function loadCmsContent() {
       if (logoMain && s.company_name) logoMain.textContent = s.company_name.replace(' Group', '');
       // Phone number
       document.querySelectorAll('.wa-number').forEach(el => { el.textContent = s.phone_display; });
-      const waLinks = document.querySelectorAll('a[href^="https://wa.me/"]');
-      waLinks.forEach(a => { if (s.phone) a.href = `https://wa.me/${s.phone}`; });
+      const waLinks = document.querySelector('a[href^="https://wa.me/"]');
+      if (waLinks && s.phone) document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a => a.href = `https://wa.me/${s.phone}`);
       // About section
       const aboutTitle = document.querySelector('.about-title');
       if (aboutTitle && s.about_title) aboutTitle.textContent = s.about_title;
@@ -66,6 +74,34 @@ async function loadCmsContent() {
       if (aboutTexts[1] && s.about_text2) aboutTexts[1].innerHTML = s.about_text2.replace(/\n/g, '<br>');
       const floatNum = document.querySelector('.float-num');
       if (floatNum && s.founded_year) floatNum.textContent = s.founded_year;
+      // About images
+      if (s.about_image1) {
+        const img1 = document.querySelector('.about-img-main img');
+        if (img1) img1.src = s.about_image1;
+        const src1 = document.querySelector('.about-img-main picture source');
+        if (src1) src1.srcset = s.about_image1;
+      }
+      if (s.about_image2) {
+        const img2 = document.querySelector('.about-img-overlay img');
+        if (img2) img2.src = s.about_image2;
+        const src2 = document.querySelector('.about-img-overlay picture source');
+        if (src2) src2.srcset = s.about_image2;
+      }
+      // About points
+      if (s.about_points && Array.isArray(s.about_points) && s.about_points.length) {
+        const pointsUl = document.querySelector('.about-points');
+        if (pointsUl) {
+          pointsUl.innerHTML = s.about_points.map(pt => `
+            <li>
+              <span class="point-icon">✓</span>
+              <div>
+                <strong>${pt.title}</strong>
+                <p>${pt.desc}</p>
+              </div>
+            </li>
+          `).join('');
+        }
+      }
       // Footer
       const footerDesc = document.querySelector('.footer-desc');
       if (footerDesc && s.footer_text) footerDesc.textContent = s.footer_text;

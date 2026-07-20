@@ -99,6 +99,13 @@ async function initDatabase() {
       cta_primary_href: '#products',
       cta_wa_text: 'WhatsApp Sekarang',
       image: 'hero.webp',
+      ticker: [
+        '🏡 Pesona Kahuripan 12 – Kini Hadir!',
+        '⭐ Lokasi Strategis di Pinggir Jalan Provinsi',
+        '💰 DP Ringan & Cicilan Mulai 1 Jutaan',
+        '🔑 Ready Stock – Bisa Langsung Huni',
+        '📞 Hubungi Kami: 0821-2496-4151'
+      ],
       updated_at: new Date().toISOString()
     },
     stats: [
@@ -117,6 +124,13 @@ async function initDatabase() {
       about_title: 'Membangun Mimpi, Satu Rumah di Satu Waktu',
       about_text: 'Pesona Kahuripan Group adalah pengembang perumahan terpercaya yang telah berdiri sejak 2013. Dengan pengalaman lebih dari satu dekade, kami telah berhasil membangun lebih dari 15.000 unit rumah yang menjadi rumah idaman bagi ribuan keluarga Indonesia.',
       about_text2: 'Kami hadir sebagai solusi hunian terjangkau namun berkualitas tinggi, dengan konstruksi Double Dinding yang kokoh dan desain modern yang tak lekang oleh waktu.',
+      about_image1: '/images/neighborhood.png',
+      about_image2: '/images/interior.png',
+      about_points: [
+        { title: 'Double Dinding Eksklusif', desc: 'Konstruksi dua lapis untuk kekuatan dan privasi maksimal' },
+        { title: 'Pengembang Terpercaya', desc: 'Terdaftar resmi & berlisensi dengan rekam jejak terbukti' },
+        { title: 'Lokasi Strategis', desc: 'Akses mudah ke pusat kota, jalan tol, dan fasilitas umum' }
+      ],
       founded_year: '2013',
       instagram: 'https://www.instagram.com/perum_pesonakahuripan.official?utm_source=qr&igsh=cXN1OHE4d2l2eDBy',
       facebook: 'https://www.facebook.com/profile.php?id=61575422217807&rdid=EFFceOEjDSSmqqbK&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BEMYd718D%2F%3Fref%3D1#',

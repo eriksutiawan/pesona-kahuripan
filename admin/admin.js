@@ -124,6 +124,7 @@ async function loadHero() {
     el('hero-img-preview').src = h.image;
     el('hero-img-preview').classList.add('show');
   }
+  setVal('hero-ticker', h.ticker ? (Array.isArray(h.ticker) ? h.ticker.join('\n') : h.ticker) : '');
 
   const sl = el('stats-list');
   sl.innerHTML = statsRes.data?.map(s => `
@@ -147,11 +148,13 @@ async function saveStat(id) {
 }
 
 el('btn-save-hero').addEventListener('click', async () => {
+  const tickerArr = val('hero-ticker').split('\n').map(x => x.trim()).filter(Boolean);
   const r = await api('PUT', '/hero', {
     badge: val('hero-badge'), title: val('hero-title'), title_em: val('hero-title-em'),
     subtitle: val('hero-subtitle'), subtitle_highlight: val('hero-subtitle-highlight'),
     subtitle_units: val('hero-subtitle-units'), cta_primary_text: val('hero-cta-primary'),
-    cta_wa_text: val('hero-cta-wa'), image: val('hero-image')
+    cta_wa_text: val('hero-cta-wa'), image: val('hero-image'),
+    ticker: tickerArr
   });
   r.success ? toast(r.message) : toast(r.error, 'error');
 });
@@ -181,6 +184,8 @@ setupImageUpload('gal-img-input', 'gal-img-preview', 'gal-image');
 setupImageUpload('news-img-input', 'news-img-preview', 'news-image');
 setupImageUpload('s-logo-input', 's-logo-preview', 's-logo-url');
 setupImageUpload('hero-img-input', 'hero-img-preview', 'hero-image');
+setupImageUpload('s-about-img1-input', 's-about-img1-preview', 's-about-img1-url');
+setupImageUpload('s-about-img2-input', 's-about-img2-preview', 's-about-img2-url');
 
 // ─── PRODUCTS ─────────────────────────────────────────
 async function loadProducts() {
@@ -457,6 +462,18 @@ async function loadSettings() {
     el('s-logo-preview').src = s.logo_url;
     el('s-logo-preview').classList.add('show');
   }
+  setVal('s-about-img1-url', s.about_image1 || '');
+  if (s.about_image1 && el('s-about-img1-preview')) {
+    el('s-about-img1-preview').src = s.about_image1;
+    el('s-about-img1-preview').classList.add('show');
+  }
+  setVal('s-about-img2-url', s.about_image2 || '');
+  if (s.about_image2 && el('s-about-img2-preview')) {
+    el('s-about-img2-preview').src = s.about_image2;
+    el('s-about-img2-preview').classList.add('show');
+  }
+  const pointsStr = s.about_points ? s.about_points.map(p => `${p.title} | ${p.desc}`).join('\n') : '';
+  setVal('s-about-points', pointsStr);
   setVal('s-company', s.company_name); setVal('s-tagline', s.tagline);
   setVal('s-phone', s.phone); setVal('s-phone-display', s.phone_display);
   setVal('s-address', s.address); setVal('s-hours', s.hours);
@@ -470,6 +487,11 @@ async function loadSettings() {
 }
 
 el('btn-save-settings').addEventListener('click', async () => {
+  const pointsArr = val('s-about-points').split('\n').map(line => {
+    const parts = line.split('|');
+    return { title: parts[0]?.trim() || '', desc: parts[1]?.trim() || '' };
+  }).filter(p => p.title);
+
   const r = await api('PUT', '/settings', {
     logo_url: val('s-logo-url'),
     company_name: val('s-company'), tagline: val('s-tagline'),
@@ -480,6 +502,9 @@ el('btn-save-settings').addEventListener('click', async () => {
     about_title: val('s-about-title'),
     about_text: el('s-about-text')?.value?.trim(),
     about_text2: el('s-about-text2')?.value?.trim(),
+    about_image1: val('s-about-img1-url'),
+    about_image2: val('s-about-img2-url'),
+    about_points: pointsArr,
     footer_text: el('s-footer')?.value?.trim()
   });
   r.success ? toast(r.message) : toast(r.error, 'error');
