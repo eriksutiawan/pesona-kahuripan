@@ -92,6 +92,11 @@ async function loadCmsContent() {
                   <li><span class="spec-icon">🏡</span> Luas Tanah: ${p.spec_land}</li>
                   <li><span class="spec-icon">🛏️</span> ${p.spec_bedroom}</li>
                   <li><span class="spec-icon">🚿</span> ${p.spec_bathroom}</li>
+                  ${p.spec_carport ? `<li><span class="spec-icon">🚗</span> ${p.spec_carport}</li>` : ''}
+                  ${p.spec_taman ? `<li><span class="spec-icon">🌿</span> ${p.spec_taman}</li>` : ''}
+                  ${p.spec_balkon ? `<li><span class="spec-icon">🏛️</span> ${p.spec_balkon}</li>` : ''}
+                  ${p.spec_laundry ? `<li><span class="spec-icon">👕</span> ${p.spec_laundry}</li>` : ''}
+                  ${p.spec_ruang_keluarga ? `<li><span class="spec-icon">🏠</span> ${p.spec_ruang_keluarga}</li>` : ''}
                 </ul>
               </div>
               <div class="card-tab-content" data-tab="kpr" style="display: none;">
@@ -724,6 +729,11 @@ document.addEventListener('DOMContentLoaded', () => {
         spec_land: '60 m²',
         spec_bedroom: '2 Kamar Tidur',
         spec_bathroom: '1 Kamar Mandi',
+        spec_carport: 'Car Port',
+        spec_taman: 'Taman',
+        spec_balkon: null,
+        spec_laundry: null,
+        spec_ruang_keluarga: 'Ruang Keluarga',
         kpr_price: 'Rp 185.000.000',
         installments: [
           { years: '20 Tahun', value: 'Rp 1.192.574 /bln' },
@@ -743,6 +753,11 @@ document.addEventListener('DOMContentLoaded', () => {
         spec_land: '72 m²',
         spec_bedroom: '2 Kamar Tidur',
         spec_bathroom: '1 Kamar Mandi',
+        spec_carport: 'Car Port',
+        spec_taman: 'Taman',
+        spec_balkon: 'Balkon',
+        spec_laundry: 'Area Laundry',
+        spec_ruang_keluarga: 'Ruang Keluarga',
         kpr_price: 'Rp 385.000.000',
         installments: [
           { years: '20 Tahun', value: 'Rp 2.480.000 /bln' },
@@ -762,6 +777,11 @@ document.addEventListener('DOMContentLoaded', () => {
         spec_land: '90 m²',
         spec_bedroom: '3 Kamar Tidur',
         spec_bathroom: '2 Kamar Mandi',
+        spec_carport: 'Car Port',
+        spec_taman: 'Taman',
+        spec_balkon: 'Balkon',
+        spec_laundry: 'Area Laundry',
+        spec_ruang_keluarga: 'Ruang Keluarga',
         kpr_price: 'Rp 480.000.000',
         installments: [
           { years: '20 Tahun', value: 'Rp 2.980.000 /bln' },
@@ -810,6 +830,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (specLandEl) specLandEl.textContent = `Luas Tanah: ${p.spec_land}`;
     if (specBedroomEl) specBedroomEl.textContent = p.spec_bedroom;
     if (specBathroomEl) specBathroomEl.textContent = p.spec_bathroom;
+
+    // Optional specs — show/hide based on product data
+    const specFields = [
+      { itemId: 'modal-product-spec-carport-item',       spanId: 'modal-product-spec-carport',       value: p.spec_carport },
+      { itemId: 'modal-product-spec-taman-item',         spanId: 'modal-product-spec-taman',         value: p.spec_taman },
+      { itemId: 'modal-product-spec-balkon-item',        spanId: 'modal-product-spec-balkon',        value: p.spec_balkon },
+      { itemId: 'modal-product-spec-laundry-item',       spanId: 'modal-product-spec-laundry',       value: p.spec_laundry },
+      { itemId: 'modal-product-spec-ruang-keluarga-item', spanId: 'modal-product-spec-ruang-keluarga', value: p.spec_ruang_keluarga },
+    ];
+    specFields.forEach(({ itemId, spanId, value }) => {
+      const item = document.getElementById(itemId);
+      const span = document.getElementById(spanId);
+      if (item) item.style.display = value ? '' : 'none';
+      if (span && value) span.textContent = value;
+    });
     if (kprPriceEl) kprPriceEl.textContent = p.kpr_price || 'Hubungi Kami';
 
     if (installmentsTbody) {

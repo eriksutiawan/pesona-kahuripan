@@ -198,6 +198,7 @@ async function loadProducts() {
 el('btn-add-product').addEventListener('click', () => {
   el('modal-product-title').textContent = 'Tambah Produk Baru';
   ['prod-id','prod-type','prod-name','prod-desc','prod-spec-building','prod-spec-land','prod-spec-bedroom','prod-spec-bathroom','prod-price-label','prod-price-value','prod-price-unit','prod-badge','prod-wa','prod-image','prod-kpr-price','prod-installments'].forEach(id => setVal(id, ''));
+  ['prod-spec-carport-check','prod-spec-taman-check','prod-spec-balkon-check','prod-spec-laundry-check','prod-spec-ruang-keluarga-check'].forEach(id => { el(id).checked = false; });
   el('prod-featured').checked = false;
   el('prod-img-preview').classList.remove('show');
   showModal('modal-product');
@@ -218,6 +219,12 @@ async function editProduct(id) {
   const installmentsStr = p.installments ? p.installments.map(i => `${i.years}: ${i.value}`).join('\n') : '';
   setVal('prod-installments', installmentsStr);
   el('prod-featured').checked = p.is_featured;
+  // Load facility checkboxes
+  el('prod-spec-carport-check').checked = !!p.spec_carport;
+  el('prod-spec-taman-check').checked = !!p.spec_taman;
+  el('prod-spec-balkon-check').checked = !!p.spec_balkon;
+  el('prod-spec-laundry-check').checked = !!p.spec_laundry;
+  el('prod-spec-ruang-keluarga-check').checked = !!p.spec_ruang_keluarga;
   const preview = el('prod-img-preview');
   preview.src = p.image; preview.classList.add('show');
   showModal('modal-product');
@@ -240,6 +247,11 @@ el('btn-save-product').addEventListener('click', async () => {
     type: val('prod-type'), name: val('prod-name'), description: val('prod-desc'),
     spec_building: val('prod-spec-building'), spec_land: val('prod-spec-land'),
     spec_bedroom: val('prod-spec-bedroom'), spec_bathroom: val('prod-spec-bathroom'),
+    spec_carport: el('prod-spec-carport-check').checked ? 'Car Port' : null,
+    spec_taman: el('prod-spec-taman-check').checked ? 'Taman' : null,
+    spec_balkon: el('prod-spec-balkon-check').checked ? 'Balkon' : null,
+    spec_laundry: el('prod-spec-laundry-check').checked ? 'Area Laundry' : null,
+    spec_ruang_keluarga: el('prod-spec-ruang-keluarga-check').checked ? 'Ruang Keluarga' : null,
     price_label: val('prod-price-label'), price_value: val('prod-price-value'),
     price_unit: val('prod-price-unit'), badge: val('prod-badge'),
     wa_message: val('prod-wa'), image: val('prod-image'),

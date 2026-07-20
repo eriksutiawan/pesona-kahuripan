@@ -192,6 +192,16 @@ section { padding: 96px 0; }
   flex-shrink: 0;
 }
 .logo-icon { font-size: 1.8rem; }
+.logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  transition: transform 0.3s ease;
+}
+.logo:hover .logo-img { transform: scale(1.07); }
 .logo-text { display: flex; flex-direction: column; line-height: 1; }
 .logo-main {
   font-family: var(--font-display);
