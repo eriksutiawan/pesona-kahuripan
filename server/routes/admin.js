@@ -3,7 +3,22 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
 const { dbGet, dbSet } = require('../database');
+const { clearCache } = require('./content');
 const router = express.Router();
+
+// Auto-clear public content cache whenever any admin write action succeeds
+router.use((req, res, next) => {
+  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
+    const originalJson = res.json;
+    res.json = function(data) {
+      if (data && data.success) {
+        try { clearCache(); } catch (e) {}
+      }
+      return originalJson.apply(this, arguments);
+    };
+  }
+  next();
+});
 
 // ─── HERO ──────────────────────────────────────────────
 router.get('/hero', async (req, res) => {

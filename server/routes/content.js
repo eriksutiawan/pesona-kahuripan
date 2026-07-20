@@ -40,11 +40,16 @@ router.get('/all', async (req, res) => {
   }
 });
 
-// POST /api/content/cache/clear — Clear cache after admin edits
-router.post('/cache/clear', (req, res) => {
+function clearCache() {
   _cache = null;
   _cacheTime = 0;
+}
+
+// POST /api/content/cache/clear — Clear cache after admin edits
+router.post('/cache/clear', (req, res) => {
+  clearCache();
   res.json({ success: true, message: 'Cache cleared.' });
 });
 
 module.exports = router;
+module.exports.clearCache = clearCache;
