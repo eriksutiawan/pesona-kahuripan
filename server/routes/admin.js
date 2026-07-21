@@ -20,6 +20,34 @@ router.use((req, res, next) => {
   next();
 });
 
+// GET /api/admin/debug-db — Test Supabase connection and report exact error
+router.get('/debug-db', async (req, res) => {
+  const { supabase, supabaseDown } = require('../database');
+  const url = (process.env.SUPABASE_URL || '').trim();
+  const hasKey = !!process.env.SUPABASE_KEY;
+  let testError = null;
+  let testResult = null;
+
+  if (supabase) {
+    try {
+      const { data, error } = await supabase.from('contents').select('id').limit(1);
+      if (error) testError = error;
+      else testResult = data;
+    } catch (e) {
+      testError = e.message;
+    }
+  }
+
+  res.json({
+    supabaseClientExists: !!supabase,
+    supabaseDownState: supabaseDown,
+    envUrl: url ? url.slice(0, 30) + '...' : 'MISSING',
+    hasEnvKey: hasKey,
+    testResult,
+    testError
+  });
+});
+
 // ─── HERO ──────────────────────────────────────────────
 router.get('/hero', async (req, res) => {
   try {
