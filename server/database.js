@@ -510,20 +510,15 @@ async function initDatabase() {
 
   if (supabase) {
     try {
-      const { data, error } = await supabase.from('contents').select('id').eq('id', 'hero').single();
-      if (data) {
-        console.log('✅ Supabase Database already seeded');
-        return;
-      }
-
-      console.log('⏳ Seeding Supabase database with default values...');
+      // Check each key individually so existing Supabase keys are NEVER overwritten
       for (const [key, val] of Object.entries(defaults)) {
-        const { error } = await supabase.from('contents').upsert({ id: key, value: val, updated_at: new Date().toISOString() });
-        if (error) {
-          console.error(`❌ Failed to seed ${key}:`, error.message);
+        const { data } = await supabase.from('contents').select('id').eq('id', key).single();
+        if (!data) {
+          console.log(`⏳ Seeding missing key '${key}' in Supabase...`);
+          await supabase.from('contents').upsert({ id: key, value: val, updated_at: new Date().toISOString() });
         }
       }
-      console.log('✅ Supabase database seeding complete!');
+      console.log('✅ Supabase database initialization check complete');
     } catch (err) {
       console.error('❌ Supabase database initialization error:', err.message);
     }
