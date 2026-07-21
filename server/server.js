@@ -227,7 +227,7 @@ app.get('*', (req, res) => {
 });
 
 // ─── Start Server ───────────────────────────────────────
-initDatabase();
+initDatabase().catch(err => console.warn('Init DB non-blocking warning:', err.message));
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log('');

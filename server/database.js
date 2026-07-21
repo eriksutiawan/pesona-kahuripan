@@ -510,17 +510,26 @@ async function initDatabase() {
 
   if (supabase) {
     try {
-      // Check each key individually so existing Supabase keys are NEVER overwritten
+      // Fast check: If hero exists, database is already seeded, return immediately
+      const { data: heroData } = await supabase.from('contents').select('id').eq('id', 'hero').maybeSingle();
+      if (heroData) {
+        console.log('✅ Supabase database already seeded');
+        return;
+      }
+
+      // If database is brand new, seed missing keys safely
       for (const [key, val] of Object.entries(defaults)) {
-        const { data } = await supabase.from('contents').select('id').eq('id', key).single();
-        if (!data) {
-          console.log(`⏳ Seeding missing key '${key}' in Supabase...`);
-          await supabase.from('contents').upsert({ id: key, value: val, updated_at: new Date().toISOString() });
-        }
+        try {
+          const { data: keyData } = await supabase.from('contents').select('id').eq('id', key).maybeSingle();
+          if (!keyData) {
+            console.log(`⏳ Seeding missing key '${key}' in Supabase...`);
+            await supabase.from('contents').upsert({ id: key, value: val, updated_at: new Date().toISOString() });
+          }
+        } catch (e) {}
       }
       console.log('✅ Supabase database initialization check complete');
     } catch (err) {
-      console.error('❌ Supabase database initialization error:', err.message);
+      console.warn('⚠️ Supabase database initialization warning:', err.message);
     }
   } else {
     // If localDb is empty, set defaults
