@@ -73,12 +73,23 @@ async function dbSet(key, value) {
       if (error) throw error;
       return true;
     } catch (err) {
-      console.warn(`⚠️ Supabase write error for key '${key}', saving to local db:`, err.message);
+      console.warn(`⚠️ Supabase write error for key '${key}':`, err.message);
+      if (!supabaseDown) {
+        supabaseDown = true;
+        setTimeout(() => { supabaseDown = false; }, 15000);
+      }
     }
   }
-  // Fallback to local db
+  // Fallback to local db (memory safe for read-only runtimes like Vercel)
   if (localDb) {
-    localDb.set(key, value).write();
+    try {
+      localDb.set(key, value).write();
+    } catch (err) {
+      // In Vercel (read-only filesystem EROFS), update in-memory lowdb state without throwing
+      if (localDb.getState()) {
+        localDb.getState()[key] = value;
+      }
+    }
     return true;
   }
   throw new Error('No database available');
