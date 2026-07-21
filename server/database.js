@@ -11,13 +11,12 @@ const bcrypt = require('bcryptjs');
 const path = require('path');
 const fs = require('fs');
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseUrl = (process.env.SUPABASE_URL || '').trim();
+const supabaseKey = (process.env.SUPABASE_KEY || '').trim();
 
 let supabase = null;
 let localDb = null;
 let supabaseDown = false; // Track if Supabase is unreachable to skip retries
-const SUPABASE_TIMEOUT_MS = 2000; // Max 2s before falling back
 
 // Always initialize local DB as fallback
 try {
@@ -30,15 +29,16 @@ try {
   console.warn('⚠️ Could not initialize local db.json:', e.message);
 }
 
-if (supabaseUrl && supabaseKey) {
+if (supabaseUrl && supabaseKey && (supabaseUrl.startsWith('http://') || supabaseUrl.startsWith('https://'))) {
   try {
     supabase = createClient(supabaseUrl, supabaseKey);
     console.log('✅ Supabase client initialized (Cloud Database mode with local fallback)');
   } catch (err) {
     console.warn('⚠️ Supabase client initialization error:', err.message);
+    supabase = null;
   }
 } else {
-  console.log('⚠️ Supabase credentials missing. Using local db.json.');
+  console.log('⚠️ Supabase credentials missing or invalid URL. Using local db.json.');
 }
 
 async function dbGet(key) {
