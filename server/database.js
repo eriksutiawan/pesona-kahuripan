@@ -31,14 +31,12 @@ try {
 }
 
 if (supabaseUrl && supabaseKey) {
-  supabase = createClient(supabaseUrl, supabaseKey, {
-    global: { fetch: (url, opts) => {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), SUPABASE_TIMEOUT_MS);
-      return fetch(url, { ...opts, signal: controller.signal }).finally(() => clearTimeout(timeout));
-    }}
-  });
-  console.log('✅ Supabase client initialized (Cloud Database mode with local fallback)');
+  try {
+    supabase = createClient(supabaseUrl, supabaseKey);
+    console.log('✅ Supabase client initialized (Cloud Database mode with local fallback)');
+  } catch (err) {
+    console.warn('⚠️ Supabase client initialization error:', err.message);
+  }
 } else {
   console.log('⚠️ Supabase credentials missing. Using local db.json.');
 }
